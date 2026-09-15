@@ -56,7 +56,57 @@ if is_demo:
 ALL_DAYS = load_all_days()
 DAY_NUMS = available_days()
 
-mode = st.sidebar.radio("Mode", ["Student — Take a Test", "Teacher Portal", "Admin — View Only"])
+mode = st.sidebar.radio(
+    "Mode",
+    ["Study Guide", "Student — Take a Test", "Teacher Portal", "Admin — View Only"],
+)
+
+# ========================================================= STUDY GUIDE =====
+if mode == "Study Guide":
+    st.subheader("📚 Study Guide — What to Practice on IXL, and When")
+    st.write(
+        "Every summative check below is tied to specific IXL skills. You don't have "
+        "to wait for a test to show up — pick any day, click through to IXL, and start "
+        "practicing weeks or even months ahead of that test date."
+    )
+
+    ARCS = [
+        ("Getting Started & Data (Days 1–4)", range(1, 5)),
+        ("Area of Rectangles, Parallelograms & Compound Figures (Days 5–9)", range(5, 10)),
+        ("Multiplying Decimals & Fractions (Day 10)", range(10, 11)),
+        ("Percent (Days 11–15)", range(11, 16)),
+        ("Ratios & Rates (Days 16–20)", range(16, 21)),
+        ("Expressions & Equations (Days 21–25)", range(21, 26)),
+        ("Rational Numbers & the Coordinate Plane (Days 26–29)", range(26, 30)),
+        ("Cumulative Review (Day 30)", range(30, 31)),
+    ]
+
+    for arc_title, day_range in ARCS:
+        days_in_arc = [d for d in day_range if d in ALL_DAYS]
+        if not days_in_arc:
+            continue
+        st.markdown(f"### {arc_title}")
+        for d in days_in_arc:
+            day_data = ALL_DAYS[d]
+            prep = day_data.get("ixl_prep") or []
+            with st.container(border=True):
+                st.markdown(f"**Day {d} — {day_data['title']}**")
+                standards = ", ".join(day_data.get("standards", []))
+                if standards:
+                    st.caption(f"Standards: {standards}")
+                if prep:
+                    st.markdown("Practice on IXL before this test:")
+                    for skill in prep:
+                        st.markdown(f"- [{skill['label']}]({skill['url']})")
+                else:
+                    st.caption(day_data.get("ixl_prep_note", "No single IXL skill maps directly to this day."))
+        st.markdown("")
+
+    st.info(
+        "This page is intentionally open — no PIN required — so students and "
+        "families can plan study time around it without needing to log in.",
+        icon="🗓️",
+    )
 
 # ============================================================== STUDENT ====
 if mode == "Student — Take a Test":
