@@ -12,13 +12,16 @@ teacher-portal results dashboard modeled on i-Ready's "Inform" view.
 | `content/day01.json` ... `day30.json` | The item bank — one file per day, 5 items/day (10 on Day 30's cumulative review), each with prompt, choices/answer, rationale, and standard. |
 | `content/loader.py` | Loads the item bank for the app. |
 | `grading.py` | Autograding logic for multiple-choice, numeric-entry, and short-answer items. |
-| `storage.py` | Pluggable data backend — local CSV (demo mode) or a private Google Sheet (recommended for real use). **Read the safety note at the top of this file before entering real student data.** |
+| `storage.py` | Live data backend — a private Google Sheet (sessions, item responses, roster, variants, Classroom links). No demo fallback: testing is blocked until it's connected. |
+| `classroom.py` | Google Classroom: per-day test links, Post-to-Classroom share buttons, and optional API sync (rosters, assignments, grade push). |
+| `test_app.py` | Headless UI tests of the student, teacher, and admin flows. |
+| `secrets_template.toml` | Every secret the app reads, with placeholders. |
 | `roster.py` | CSV roster import, mapped from Google Classroom / PowerSchool export column names onto one canonical schema. |
 | `charts.py` | Teacher-dashboard visualizations (score distributions, item difficulty, standards mastery heatmap, growth over time, and the representation/misconception research chart). |
 | `app.py` | The Streamlit app itself — student test-taking flow + PIN-gated Teacher Portal. |
 | `validate.py` | Structural + arithmetic validator for the item bank (re-run this after editing any day's JSON). |
 | `smoke_test.py` | End-to-end test with synthetic data — exercises grading, storage, and every chart. |
-| `SETUP.md` | Step-by-step deployment guide: hosting, teacher PIN, private Google Sheets storage, roster import, FERPA notes. |
+| `SETUP.md` | **Launch guide**: private Sheet storage, staff access, Google sign-in, Google Classroom links and API sync, FERPA. |
 | `LAUNCHER_PATCH.md` | The exact, small patch to add a "Summative Test Sessions" link to your existing `cpamathlauncher/app.py`, next to the Lessons by Day section. |
 
 ## Quick start

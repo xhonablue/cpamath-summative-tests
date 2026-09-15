@@ -1,120 +1,124 @@
-# Summative Test Sessions — Setup Guide
+# Summative Test Sessions — Launch Guide (Live)
 
-This app follows the same pattern as your other MathCraft CPA day apps: it's
-a standalone Streamlit app you deploy on its own, and the main launcher
-(`cpamathlauncher`) just links to it. It does **not** need to live in the
-same GitHub repo, though it can (as a subfolder) if that's easier for you to
-manage.
+The app is **live-only**: there is no demo mode. Until secure storage is
+connected, students see "Testing opens as soon as your teacher finishes
+setup" and nothing is recorded. Every step below is done once.
 
-## 1. Deploy the app itself
+Open your app on [share.streamlit.io](https://share.streamlit.io) →
+**⋮ → Settings → Secrets**. A full template is in
+`secrets_template.toml`.
 
-1. Push this folder to a new GitHub repo (e.g. `cpamath-summative-tests`) —
-   or add it as a subfolder of `cpamathlauncher` if you'd rather keep
-   everything in one place.
-2. On [share.streamlit.io](https://share.streamlit.io), deploy a new app
-   pointing at this repo/folder's `app.py`.
-3. Note the URL Streamlit gives you (e.g.
-   `https://cpamath-summative-tests.streamlit.app/`) — you'll need it for
-   step 4 below (adding the link to your main launcher).
+---
 
-## 2. Set a teacher PIN
+## Step 1 — Private results Google Sheet (REQUIRED, ~10 min)
 
-In the deployed app's Settings → Secrets, add:
+1. [Google Cloud Console](https://console.cloud.google.com/) → create a project
+   (e.g. `cpa-summative`).
+2. **APIs & Services → Library** → enable **Google Sheets API**
+   (and **Google Classroom API** if you plan to do Step 4).
+3. **IAM & Admin → Service Accounts → Create**. Name it `cpa-summative`.
+   Open it → **Keys → Add key → JSON**. A file downloads.
+4. Create a blank Google Sheet named **CPA Summative Results — PRIVATE**.
+   **Share** it with the service account email
+   (`…@….iam.gserviceaccount.com`) as **Editor**.
+5. Copy the Sheet ID from its URL: `docs.google.com/spreadsheets/d/`**`ID`**`/edit`
+6. In Secrets, paste:
+   ```toml
+   sheet_id = "THE-ID"
 
-```toml
-teacher_pin = "choose-something-not-guessable"
-```
+   [gcp_service_account]
+   # one line per field from the downloaded JSON file
+   type = "service_account"
+   project_id = "..."
+   private_key_id = "..."
+   private_key = "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+   client_email = "...@....iam.gserviceaccount.com"
+   client_id = "..."
+   token_uri = "https://oauth2.googleapis.com/token"
+   ```
+7. Save. The red "Setup required" banner disappears. The app creates the tabs
+   `sessions`, `item_responses`, `roster`, `class_variants`, `classroom_links`
+   inside the sheet automatically.
 
-Without this, the app falls back to a default PIN (`6grade`) that is **not**
-private — anyone who reads this repo can see it. This PIN is a light
-deterrent for a single-classroom tool, not real authentication. Once Google
-Classroom's API is wired up (see step 4), swap this for real sign-in.
-
-## 3. Set up private data storage (do this before entering any real student data)
-
-**By default the app runs in DEMO MODE**: results are written to a local CSV
-file that (a) is *not* private — anyone with server access could read it —
-and (b) is *not* durable — Streamlit Community Cloud can wipe local disk on
-any restart or redeploy. It's fine for testing the app yourself, but real
-student names, IDs, or scores should never be entered until you've done this
-step.
-
-**Recommended: a private Google Sheet.** ~10 minutes, free, keeps data
-completely outside GitHub:
-
-1. In [Google Cloud Console](https://console.cloud.google.com/), create a
-   project (or reuse one) and enable the **Google Sheets API**.
-2. Create a **Service Account** (IAM & Admin → Service Accounts → Create),
-   then create a JSON key for it and download it.
-3. Create a new Google Sheet (just a blank one) to hold results. Share it
-   with the service account's email address (looks like
-   `something@your-project.iam.gserviceaccount.com`), giving it **Editor**
-   access.
-4. Copy the Sheet's ID from its URL:
-   `https://docs.google.com/spreadsheets/d/`**`THIS_PART`**`/edit`
-5. In the app's Settings → Secrets, add:
+## Step 2 — Staff access (REQUIRED)
 
 ```toml
-sheet_id = "paste-the-sheet-id-here"
-
-[gcp_service_account]
-type = "service_account"
-project_id = "..."
-private_key_id = "..."
-private_key = "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
-client_email = "...@....iam.gserviceaccount.com"
-client_id = "..."
-# (copy every field from the downloaded JSON key file into this table)
+teacher_pin = "something-only-you-know"
+admin_pin   = "a-different-pin-for-administrators"
+app_url     = "https://cpamath-summative-tests.streamlit.app/"
 ```
+Without these the Teacher Portal and Admin view stay locked.
 
-The app auto-detects this and switches out of DEMO MODE — the yellow banner
-disappears and `storage.label` shows "Google Sheets (private)" in the
-Teacher Portal.
+## Step 3 — "Sign in with Google" (RECOMMENDED, ~10 min)
 
-Only you (and anyone you explicitly share the Sheet with) can see this data.
-It never touches the public `cpamathlauncher` repo.
+Students sign in with their school account — no typed names, no impersonation,
+and their class fills in from the roster.
 
-## 4. Rosters: Google Classroom & PowerSchool
+1. Cloud Console → **APIs & Services → OAuth consent screen** → User type
+   **Internal** (keeps sign-in to your school domain) → fill app name and your email.
+2. **Credentials → Create credentials → OAuth client ID → Web application**.
+   Authorized redirect URI:
+   `https://cpamath-summative-tests.streamlit.app/oauth2callback`
+3. Add to Secrets:
+   ```toml
+   teacher_emails = ["you@your-school-domain"]
+   admin_emails   = ["principal@your-school-domain"]
+   student_email_domain = "your-student-domain"   # optional
 
-Both systems' *live* APIs need credentials your district issues — a Google
-Cloud OAuth client approved by your Chandler Park Academy Workspace admin,
-and a PowerSchool API/plugin key from your SIS admin. Ask your IT
-department for these when you're ready to automate roster sync; until then,
-**CSV export/import works today with no approvals needed**:
+   [auth]
+   redirect_uri = "https://cpamath-summative-tests.streamlit.app/oauth2callback"
+   cookie_secret = "any-long-random-string"
+   client_id = "....apps.googleusercontent.com"
+   client_secret = "..."
+   server_metadata_url = "https://accounts.google.com/.well-known/openid-configuration"
+   ```
+When `teacher_emails` / `admin_emails` are set, staff sign in with Google instead of PINs.
 
-- **Google Classroom:** Classroom → your class → People → the "⋮" menu →
-  "Export" (or download the roster from Classroom's export tools) gives a
-  CSV with student names/emails.
-- **PowerSchool:** PowerSchool Admin → Student Search → select students →
-  "Export" lets you choose fields (Student Number, Last/First Name, Grade,
-  Section, etc.) and download as CSV.
+## Step 4 — Google Classroom
 
-Upload either export in the Teacher Portal's **Roster Import** tab — the app
-recognizes common column-naming variants from both systems automatically.
+**Works immediately (no approval):** Teacher Portal → **🏫 Google Classroom**
+lists all 30 days. Each has a direct link (`…streamlit.app/?day=8` opens
+straight to Day 8) and a **Post to Classroom** button that opens Classroom's
+official share window — choose your class and it creates the assignment.
 
-When live API access does become available, only `roster.py`'s import
-function needs to change (add a Classroom/PowerSchool API call that returns
-the same canonical student list); nothing else in the app depends on how the
-roster got there.
+**Full API sync (needs your Workspace admin once):** pull rosters, create
+assignments, and push scores into Classroom grades (guardians see them in
+their Classroom summaries).
+1. Enable **Google Classroom API** in the same Cloud project.
+2. Send your Workspace admin the service account's **Client ID** (numeric,
+   on the service account page) and ask them to add it at
+   **admin.google.com → Security → Access and data control → API controls →
+   Domain-wide delegation** with these scopes:
+   ```
+   https://www.googleapis.com/auth/classroom.courses.readonly,https://www.googleapis.com/auth/classroom.rosters.readonly,https://www.googleapis.com/auth/classroom.profile.emails,https://www.googleapis.com/auth/classroom.coursework.students
+   ```
+3. Add to Secrets: `classroom_delegated_user = "you@your-school-domain"`
+4. Teacher Portal → Google Classroom → pick a course → **Import roster**,
+   **Create in Classroom**, then **Sync grades now** after students test.
+   (Classroom only allows grade sync on assignments the app created.)
 
-## 5. Representation-variant tracking (for the imagery/misconception research)
+## Step 5 — Launcher link on cpamath.org / cpamathlauncher
 
-In the Teacher Portal's **Representation Variants** tab, map each class or
-section to which version of the Day 8 parallelogram image it saw ("Variant
-A" / "Variant B"). Every test session submitted by a student in that section
-is tagged with that variant automatically. The **Representation Research**
-tab then charts the height-vs-slant misconception rate at three checkpoints
-(Day 8, Day 9, Day 30 — same diagnostic design, new numbers each time) split
-by variant.
+The launcher button is in PR #4 of `xhonablue-source/cpamathlauncher`
+(see LAUNCHER_PATCH.md). On cpamath.org (GoDaddy), add a button linking to
+`https://cpamath-summative-tests.streamlit.app/`.
 
-Note: this mapping currently resets when the app restarts (it lives in
-session memory, not yet in the Sheets/CSV backend). Once Google Sheets
-storage is configured, this is an easy follow-up to persist the same way.
+## Options
 
-## 6. FERPA reminder
+| Secret | Effect |
+|---|---|
+| `allow_retakes = true` | Students may retake a day (default: one attempt; the best score syncs to Classroom). |
+| `dev_mode = true` | Local CSV for development only. Never use with real students. |
 
-- Never commit real student data to the `cpamathlauncher` GitHub repo — it's
-  public.
-- Don't leave the app in DEMO MODE once real students are using it.
-- The teacher PIN is a deterrent, not real access control — don't rely on it
-  alone once this holds real student records at scale.
+## Verify the launch
+
+Teacher Portal → **⚙️ Setup & Status** shows a green checklist for storage,
+access, sign-in, Classroom, and roster. Take one test yourself using
+`?day=1`, confirm the row appears in the Sheet, then share links.
+
+## FERPA
+
+- The GitHub repo is public: code and question bank only. Never commit
+  `secrets.toml`, rosters, or results (they're git-ignored).
+- The results Sheet is shared only with the service account and staff you choose.
+- Admin view shows aggregate data only.

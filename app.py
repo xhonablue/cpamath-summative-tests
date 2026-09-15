@@ -1,75 +1,221 @@
-"""MathCraft CPA — Summative Test Sessions
+"""MathCraft CPA — Summative Test Sessions (LIVE)
 
-A standalone Streamlit app (same deployment pattern as the other MathCraft CPA
-day apps) with two modes:
-  - Student: take today's summative check, get autograded instantly.
-  - Teacher Portal (PIN-gated): roster import, autograded results, and
-    i-Ready-"Inform"-style dashboards — score distributions, standards
-    mastery, item difficulty, growth over time, plus a dedicated chart for
-    the representation/misconception research thread.
+Chandler Park Academy's own i-Ready-style summative platform for Grade 6 math:
+  - Study Guide: open IXL prep for all 30 days.
+  - Student: sign in with a school Google account (or name + class), take
+    the day's check, get autograded instantly. One attempt per day unless
+    the teacher enables retakes.
+  - Teacher Portal: live Google Classroom links and assignment posting,
+    roster sync, results dashboards, grade sync to Classroom, research
+    charts, export, and a setup/status checklist.
+  - Admin — View Only: aggregate, de-identified cohort charts.
 
-See SETUP.md before using this with real students: by default this runs in
-DEMO MODE (local CSV, not private, not durable) until Google Sheets storage
-is configured.
+Student data lives only in a private Google Sheet (see SETUP.md). If that
+isn't connected, student testing is blocked — there is no demo fallback.
 """
 import os
 import sys
-import streamlit as st
+
 import pandas as pd
+import streamlit as st
 
 sys.path.insert(0, os.path.dirname(__file__))
 from content.loader import load_all_days, available_days  # noqa: E402
 from grading import grade_session  # noqa: E402
 from storage import get_storage, SessionRecord  # noqa: E402
 import roster as roster_mod  # noqa: E402
+import classroom  # noqa: E402
 import charts  # noqa: E402
 
 st.set_page_config(page_title="MathCraft CPA — Summative Test Sessions", page_icon="📝", layout="wide")
 
 NAVY = "#1F3864"
 GOLD = "#B08D57"
+DEFAULT_APP_URL = "https://cpamath-summative-tests.streamlit.app/"
 
-# ---------------------------------------------------------------- storage ---
-storage, is_demo = get_storage(st.secrets if hasattr(st, "secrets") else None)
 
+# ------------------------------------------------------------- secrets ---
+def secret(key, default=None):
+    try:
+        return st.secrets.get(key, default)
+    except Exception:
+        return default
+
+
+def _as_list(v):
+    if not v:
+        return []
+    if isinstance(v, str):
+        return [x.strip().lower() for x in v.split(",") if x.strip()]
+    return [str(x).strip().lower() for x in v]
+
+
+APP_URL = secret("app_url", DEFAULT_APP_URL)
+ALLOW_RETAKES = str(secret("allow_retakes", "false")).lower() == "true"
+TEACHER_EMAILS = _as_list(secret("teacher_emails"))
+ADMIN_EMAILS = _as_list(secret("admin_emails"))
+STUDENT_DOMAIN = str(secret("student_email_domain", "") or "").strip().lower().lstrip("@")
+
+
+def auth_configured():
+    try:
+        return "auth" in st.secrets and hasattr(st, "login")
+    except Exception:
+        return False
+
+
+AUTH_ON = auth_configured()
+
+
+def current_user():
+    """Returns {'email','name'} when signed in with Google, else None."""
+    if not AUTH_ON:
+        return None
+    try:
+        if st.user.is_logged_in:
+            return {"email": str(st.user.get("email", "")).lower(), "name": st.user.get("name", "")}
+    except Exception:
+        pass
+    return None
+
+
+# ------------------------------------------------------------- storage ---
+@st.cache_resource(show_spinner="Connecting to secure storage…")
+def _connect(signature: str):
+    # _signature changes whenever storage-related secrets change, forcing a reconnect
+    try:
+        return get_storage(st.secrets)
+    except Exception:
+        return get_storage(None)
+
+
+_sig = f"{secret('sheet_id', '')}|{secret('dev_mode', '')}|{os.environ.get('CPA_DEV', '')}"
+storage, STORAGE_STATUS, STORAGE_MSG = _connect(_sig)
+LIVE_OK = STORAGE_STATUS in ("live", "dev")
+
+
+@st.cache_data(ttl=20, show_spinner=False)
+def cached(table: str, _v: int = 0):
+    return {
+        "sessions": storage.load_sessions,
+        "items": storage.load_item_responses,
+        "roster": storage.load_roster,
+        "variants": storage.load_variants,
+        "links": storage.load_classroom_links,
+    }[table]()
+
+
+def refresh():
+    cached.clear()
+
+
+ALL_DAYS = load_all_days()
+DAY_NUMS = available_days()
+
+
+def item_meta():
+    return {
+        item["id"]: {"standard": ",".join(d.get("standards", [])) or "Unassigned"}
+        for d in ALL_DAYS.values() for item in d["items"]
+    }
+
+
+# ------------------------------------------------------------- header ---
 st.markdown(
     f"""
     <div style="background:linear-gradient(135deg,{NAVY} 0%, #142544 100%);
                 color:white;padding:1.6rem 2rem;border-radius:14px;
                 border-bottom:6px solid {GOLD};margin-bottom:1rem;">
-        <h1 style="margin:0;">📝 MathCraft CPA — Summative Test Sessions</h1>
+        <h1 style="margin:0;color:white;">📝 MathCraft CPA — Summative Test Sessions</h1>
         <p style="margin:0.3rem 0 0 0;opacity:0.9;">Chandler Park Academy · Grade 6 Mathematics</p>
     </div>
     """,
     unsafe_allow_html=True,
 )
 
-if is_demo:
-    st.warning(
-        "**DEMO MODE** — results are being saved to a temporary local file, not a "
-        "private, durable store. Do **not** enter real students' names or IDs until "
-        "Google Sheets storage is configured (see SETUP.md). Streamlit Community "
-        "Cloud's local disk can be wiped at any time.",
-        icon="⚠️",
-    )
+if STORAGE_STATUS == "not_configured":
+    st.error("**Setup required** — secure storage isn't connected yet, so testing is paused. "
+             "Teachers: open **Teacher Portal → Setup & Status**.", icon="🔒")
+elif STORAGE_STATUS == "error":
+    st.error("**Storage connection problem** — testing is paused so no answers are lost. "
+             "Teachers: open **Teacher Portal → Setup & Status** for details.", icon="🛑")
+elif STORAGE_STATUS == "dev":
+    st.warning("Development mode (local test data only).", icon="🧪")
 
-ALL_DAYS = load_all_days()
-DAY_NUMS = available_days()
+# ------------------------------------------------------------- sidebar ---
+qp_day = st.query_params.get("day")
+try:
+    LINKED_DAY = int(qp_day) if qp_day and int(qp_day) in ALL_DAYS else None
+except ValueError:
+    LINKED_DAY = None
 
-mode = st.sidebar.radio(
-    "Mode",
-    ["Study Guide", "Student — Take a Test", "Teacher Portal", "Admin — View Only"],
-)
+MODES = ["Study Guide", "Student — Take a Test", "Teacher Portal", "Admin — View Only"]
+default_mode = 1 if LINKED_DAY else 0
+mode = st.sidebar.radio("Mode", MODES, index=default_mode)
+
+user = current_user()
+if AUTH_ON:
+    st.sidebar.divider()
+    if user:
+        st.sidebar.caption(f"Signed in as **{user['email']}**")
+        if st.sidebar.button("Sign out"):
+            st.logout()
+    else:
+        st.sidebar.button("Sign in with Google", on_click=st.login, type="primary")
+
+
+def require_staff(role: str):
+    """role: 'teacher' or 'admin'. Google sign-in allowlist if configured, else PIN."""
+    allow = TEACHER_EMAILS if role == "teacher" else ADMIN_EMAILS + TEACHER_EMAILS
+    if AUTH_ON and allow:
+        if not user:
+            st.info("Sign in with your CPA Google account to continue.")
+            st.button("Sign in with Google", on_click=st.login, type="primary", key=f"login_{role}")
+            st.stop()
+        if user["email"] not in allow:
+            st.error(f"{user['email']} isn't on the {role} access list.")
+            st.stop()
+        return
+    key = "teacher_pin" if role == "teacher" else "admin_pin"
+    configured = secret(key)
+    if not configured:
+        st.error(f"The {role} PIN hasn't been set. Add `{key}` in the app's Secrets "
+                 "(see SETUP.md). Access is locked until then.")
+        if role == "teacher":
+            setup_status_panel()
+        st.stop()
+    pin = st.text_input(f"{role.title()} PIN", type="password", key=f"{role}_pin_input")
+    if pin != configured:
+        st.stop()
+
+
+def setup_status_panel():
+    st.markdown("#### Launch checklist")
+    rows = [
+        ("Secure storage (Google Sheet)", STORAGE_STATUS == "live",
+         STORAGE_MSG if STORAGE_STATUS != "live" else f"[Open results sheet]({storage.sheet_url})"),
+        ("Teacher access set", bool(secret("teacher_pin") or (AUTH_ON and TEACHER_EMAILS)),
+         "teacher_pin or teacher_emails + Google sign-in"),
+        ("Admin access set", bool(secret("admin_pin") or (AUTH_ON and ADMIN_EMAILS)),
+         "admin_pin or admin_emails + Google sign-in"),
+        ("Student Google sign-in", AUTH_ON, "[auth] section in Secrets (recommended)"),
+        ("Classroom links & share buttons", True, f"Test links use {APP_URL}"),
+        ("Classroom API sync (rosters, assignments, grades)", classroom.api_configured(st.secrets)
+         if hasattr(st, "secrets") else False,
+         "classroom_delegated_user + admin-approved domain-wide delegation"),
+        ("Roster loaded", LIVE_OK and len(cached("roster")) > 0, "Teacher Portal → Roster"),
+    ]
+    for label, ok, note in rows:
+        st.markdown(f"{'✅' if ok else '⬜'} **{label}** — {note}")
+    if STORAGE_STATUS == "live":
+        st.caption(f"Service account: `{storage.service_account_email}`")
+    st.caption("Full instructions: SETUP.md in the GitHub repo.")
+
 
 # ========================================================= STUDY GUIDE =====
 if mode == "Study Guide":
     st.subheader("📚 Study Guide — What to Practice on IXL, and When")
-    st.write(
-        "Every summative check below is tied to specific IXL skills. You don't have "
-        "to wait for a test to show up — pick any day, click through to IXL, and start "
-        "practicing weeks or even months ahead of that test date."
-    )
-
+    st.write("Every summative check is tied to specific IXL skills. Pick any day and practice ahead.")
     ARCS = [
         ("Getting Started & Data (Days 1–4)", range(1, 5)),
         ("Area of Rectangles, Parallelograms & Compound Figures (Days 5–9)", range(5, 10)),
@@ -80,307 +226,404 @@ if mode == "Study Guide":
         ("Rational Numbers & the Coordinate Plane (Days 26–29)", range(26, 30)),
         ("Cumulative Review (Day 30)", range(30, 31)),
     ]
-
     for arc_title, day_range in ARCS:
         days_in_arc = [d for d in day_range if d in ALL_DAYS]
         if not days_in_arc:
             continue
         st.markdown(f"### {arc_title}")
         for d in days_in_arc:
-            day_data = ALL_DAYS[d]
-            prep = day_data.get("ixl_prep") or []
+            dd = ALL_DAYS[d]
             with st.container(border=True):
-                st.markdown(f"**Day {d} — {day_data['title']}**")
-                standards = ", ".join(day_data.get("standards", []))
-                if standards:
-                    st.caption(f"Standards: {standards}")
+                st.markdown(f"**Day {d} — {dd['title']}**")
+                if dd.get("standards"):
+                    st.caption("Standards: " + ", ".join(dd["standards"]))
+                prep = dd.get("ixl_prep") or []
                 if prep:
                     st.markdown("Practice on IXL before this test:")
                     for skill in prep:
                         st.markdown(f"- [{skill['label']}]({skill['url']})")
                 else:
-                    st.caption(day_data.get("ixl_prep_note", "No single IXL skill maps directly to this day."))
-        st.markdown("")
-
-    st.info(
-        "This page is intentionally open — no PIN required — so students and "
-        "families can plan study time around it without needing to log in.",
-        icon="🗓️",
-    )
+                    st.caption(dd.get("ixl_prep_note", "No single IXL skill maps directly to this day."))
 
 # ============================================================== STUDENT ====
-if mode == "Student — Take a Test":
+elif mode == "Student — Take a Test":
     st.subheader("Start a Summative Check")
+    if not LIVE_OK:
+        st.info("Testing opens as soon as your teacher finishes setup. Check back soon!")
+        st.stop()
 
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        student_name = st.text_input("Student name")
-    with col2:
-        student_id = st.text_input("Student ID (optional)")
-    with col3:
-        class_section = st.text_input("Class / Section", placeholder="e.g., Period 2")
+    # --- identity ---
+    roster_rec = None
+    if AUTH_ON:
+        if not user:
+            st.info("Sign in with your **school Google account** to start your test.")
+            st.button("Sign in with Google", on_click=st.login, type="primary", key="student_login")
+            st.stop()
+        if STUDENT_DOMAIN and not user["email"].endswith("@" + STUDENT_DOMAIN):
+            st.error(f"Please sign in with your @{STUDENT_DOMAIN} school account.")
+            st.stop()
+        roster_rec = storage.find_student_by_email(user["email"])
+        student_email = user["email"]
+        if roster_rec:
+            student_name = f"{roster_rec['first_name']} {roster_rec['last_name']}".strip() or user["name"]
+            student_id = str(roster_rec["student_id"])
+            class_section = str(roster_rec["class_section"])
+            st.success(f"Welcome, **{student_name}** · {class_section}")
+        else:
+            student_name = user["name"] or student_email
+            student_id = student_email
+            sections = storage.class_sections()
+            class_section = (st.selectbox("Your class", sections, index=None) if sections
+                             else st.text_input("Class / Section", placeholder="e.g., Period 2"))
+            st.caption(f"Signed in as {student_email}")
+    else:
+        student_email = ""
+        sections = storage.class_sections()
+        c1, c2, c3 = st.columns(3)
+        student_name = c1.text_input("Your full name")
+        student_id = c2.text_input("Student ID (optional)")
+        class_section = (c3.selectbox("Class / Section", sections, index=None) if sections
+                         else c3.text_input("Class / Section", placeholder="e.g., Period 2"))
+        student_id = student_id.strip() or student_name.strip()
 
-    day = st.selectbox("Which day's summative check?", DAY_NUMS,
-                        format_func=lambda d: f"Day {d} — {ALL_DAYS[d]['title']}")
-
+    # --- day ---
+    if LINKED_DAY:
+        day = LINKED_DAY
+        st.markdown(f"#### Day {day} — {ALL_DAYS[day]['title']}")
+    else:
+        day = st.selectbox("Which day's summative check?", DAY_NUMS,
+                           format_func=lambda d: f"Day {d} — {ALL_DAYS[d]['title']}")
     day_data = ALL_DAYS[day]
     st.caption(f"Standards: {', '.join(day_data.get('standards', []))}")
 
     if not student_name or not class_section:
         st.info("Enter your name and class/section above to begin.")
-    else:
-        responses = {}
-        with st.form("test_form"):
-            for i, item in enumerate(day_data["items"], start=1):
-                st.markdown(f"**{i}. {item['prompt']}**")
-                if item["type"] == "multiple_choice":
-                    labels = [f"{k}. {v}" for k, v in item["choices"].items()]
-                    choice = st.radio("Select one:", labels, key=item["id"], index=None, label_visibility="collapsed")
-                    responses[item["id"]] = choice.split(".")[0] if choice else None
-                elif item["type"] == "numeric_entry":
-                    val = st.text_input("Your answer (number):", key=item["id"])
-                    responses[item["id"]] = val
-                elif item["type"] == "short_answer":
-                    val = st.text_input("Your answer:", key=item["id"])
-                    responses[item["id"]] = val
-                st.markdown("---")
+        st.stop()
 
-            submitted = st.form_submit_button("Submit Summative Check", type="primary")
+    done_key = f"done_{student_id}_{day}"
+    if not ALLOW_RETAKES and not st.session_state.get(done_key):
+        prior = storage.prior_attempts(student_id, day)
+        if prior:
+            p = prior[-1]
+            st.warning(f"You already completed Day {day} "
+                       f"({p['score_correct']}/{p['score_total']}, {p['score_percent']}%). "
+                       "Ask your teacher if you need a retake.", icon="✅")
+            st.stop()
 
-        if submitted:
-            graded = grade_session(day_data["items"], responses)
-
-            variant = storage.__dict__.get("_class_variant", {}).get(class_section, "Unassigned") \
-                if hasattr(storage, "__dict__") else "Unassigned"
-
-            session = SessionRecord(
-                student_id=student_id or student_name,
-                student_name=student_name,
-                class_section=class_section,
-                representation_variant=variant,
-                day=day,
-                day_title=day_data["title"],
-                score_correct=graded["score_correct"],
-                score_total=graded["score_total"],
-                score_percent=graded["score_percent"],
-            )
-            item_rows = []
+    if st.session_state.get(done_key):
+        r = st.session_state[done_key]
+        st.success(f"Submitted! Score: {r['score_correct']} / {r['score_total']}  ({r['score_percent']}%)")
+        st.progress(min(r["score_percent"] / 100, 1.0))
+        with st.expander("Review your answers", expanded=True):
             for item in day_data["items"]:
-                r = graded["results"][item["id"]]
-                item_rows.append({
-                    "session_id": session.session_id, "item_id": item["id"], "day": day,
-                    "standard": ",".join(day_data.get("standards", [])),
-                    "research_tag": item.get("research_tag", ""),
-                    "item_type": item["type"], "given_answer": r["given"],
-                    "expected_answer": r["expected"], "correct": r["correct"], "skipped": r["skipped"],
-                })
-            storage.save_session(session, item_rows)
+                res = r["results"][item["id"]]
+                st.markdown(f"{'✅' if res['correct'] else '❌'} **{item['prompt']}**")
+                st.caption(f"Your answer: {res['given']}  |  Correct answer: {res['expected']}")
+                if item.get("rationale"):
+                    st.caption(item["rationale"])
+        st.stop()
 
-            st.success(f"Score: {graded['score_correct']} / {graded['score_total']}  ({graded['score_percent']}%)")
-            st.progress(min(graded["score_percent"] / 100, 1.0))
+    responses = {}
+    with st.form("test_form"):
+        for i, item in enumerate(day_data["items"], start=1):
+            st.markdown(f"**{i}. {item['prompt']}**")
+            key = f"{day}_{item['id']}"
+            if item["type"] == "multiple_choice":
+                labels = [f"{k}. {v}" for k, v in item["choices"].items()]
+                choice = st.radio("Select one:", labels, key=key, index=None, label_visibility="collapsed")
+                responses[item["id"]] = choice.split(".")[0] if choice else None
+            elif item["type"] == "numeric_entry":
+                responses[item["id"]] = st.text_input("Your answer (number):", key=key)
+            else:
+                responses[item["id"]] = st.text_input("Your answer:", key=key)
+            st.markdown("---")
+        submitted = st.form_submit_button("Submit Summative Check", type="primary")
 
-            with st.expander("Review your answers"):
-                for item in day_data["items"]:
-                    r = graded["results"][item["id"]]
-                    icon = "✅" if r["correct"] else "❌"
-                    st.markdown(f"{icon} **{item['prompt']}**")
-                    st.caption(f"Your answer: {r['given']}  |  Correct answer: {r['expected']}")
-                    st.caption(item.get("rationale", ""))
+    if submitted:
+        unanswered = [i for i, it in enumerate(day_data["items"], 1) if not responses.get(it["id"])]
+        if unanswered and not st.session_state.get(f"confirm_{day}"):
+            st.session_state[f"confirm_{day}"] = True
+            st.warning(f"Question(s) {', '.join(map(str, unanswered))} are blank. "
+                       "Press **Submit** again to turn in anyway.")
+            st.stop()
+
+        graded = grade_session(day_data["items"], responses)
+        variant = cached("variants").get(class_section, "Unassigned")
+        session = SessionRecord(
+            student_id=student_id, student_name=student_name, student_email=student_email,
+            class_section=class_section, representation_variant=variant,
+            day=day, day_title=day_data["title"],
+            score_correct=graded["score_correct"], score_total=graded["score_total"],
+            score_percent=graded["score_percent"],
+        )
+        item_rows = [{
+            "session_id": session.session_id, "item_id": it["id"], "day": day,
+            "standard": ",".join(day_data.get("standards", [])),
+            "research_tag": it.get("research_tag", ""), "item_type": it["type"],
+            "given_answer": graded["results"][it["id"]]["given"],
+            "expected_answer": graded["results"][it["id"]]["expected"],
+            "correct": graded["results"][it["id"]]["correct"],
+            "skipped": graded["results"][it["id"]]["skipped"],
+        } for it in day_data["items"]]
+        try:
+            with st.spinner("Saving your answers…"):
+                storage.save_session(session, item_rows)
+        except Exception as e:
+            st.error("Your answers could not be saved. Don't close this page — press Submit "
+                     f"again in a moment, or tell your teacher. ({type(e).__name__})")
+            st.stop()
+        refresh()
+        st.session_state[done_key] = graded
+        st.rerun()
 
 # ========================================================= TEACHER PORTAL ==
 elif mode == "Teacher Portal":
     st.subheader("Teacher Portal")
+    require_staff("teacher")
 
-    configured_pin = None
-    try:
-        configured_pin = st.secrets.get("teacher_pin")
-    except Exception:
-        pass
-    configured_pin = configured_pin or "6grade"  # change this in secrets.toml for real use
-
-    pin = st.text_input("Teacher PIN", type="password")
-    if pin != configured_pin:
-        st.info("Enter the teacher PIN to view rosters and results. "
-                 "This PIN is a light deterrent, not real security — set your own in "
-                 "`.streamlit/secrets.toml` (`teacher_pin = \"...\"`) and swap in Google "
-                 "Classroom sign-in once that integration is live (see SETUP.md).")
+    if not LIVE_OK:
+        st.error(f"Storage: {STORAGE_MSG}")
+        setup_status_panel()
         st.stop()
 
-    st.caption(f"Storage backend: **{storage.label}**")
+    top = st.columns([4, 1])
+    top[0].caption(f"Storage: **{storage.label}**")
+    if top[1].button("↻ Refresh data"):
+        refresh()
 
-    tab_roster, tab_variants, tab_results, tab_research, tab_export = st.tabs(
-        ["📋 Roster Import", "🎨 Representation Variants", "📊 Results Dashboard",
-         "🔬 Representation Research", "⬇️ Export Data"]
-    )
+    tabs = st.tabs(["🏫 Google Classroom", "📋 Roster", "📊 Results", "🧑‍🎓 Students",
+                    "🎨 Variants", "🔬 Research", "⬇️ Export", "⚙️ Setup & Status"])
+    tab_gc, tab_roster, tab_results, tab_students, tab_var, tab_research, tab_export, tab_setup = tabs
 
-    # ---- Roster import ----
-    with tab_roster:
-        st.markdown(
-            "Upload a class roster exported as CSV from **Google Classroom** or "
-            "**PowerSchool**. Column names don't need to match exactly — common "
-            "variants (Student ID / Student_Number, First Name / First_Name, etc.) "
-            "are recognized automatically."
-        )
-        uploaded = st.file_uploader("Roster CSV", type=["csv"])
-        if uploaded:
-            students = roster_mod.parse_roster_csv(uploaded.getvalue())
-            unmapped = roster_mod.unmapped_columns_warning(uploaded.getvalue())
-            st.success(f"Parsed {len(students)} students.")
-            st.dataframe(pd.DataFrame(students))
-            if unmapped:
-                st.caption(f"Columns not recognized (ignored): {', '.join(unmapped)}")
+    # ---- Google Classroom ----
+    with tab_gc:
+        st.markdown("#### Post tests to Google Classroom")
+        st.caption("Each link opens the app straight to that day's test. **Post** opens Classroom's "
+                   "share window — pick your class and it creates the assignment with the link attached.")
+        for d in DAY_NUMS:
+            dd = ALL_DAYS[d]
+            link = classroom.test_link(APP_URL, d)
+            title = f"Day {d} Summative Check — {dd['title']}"
+            body = (f"Sign in with your school Google account and complete the Day {d} check. "
+                    f"Standards: {', '.join(dd.get('standards', []))}")
+            c1, c2, c3 = st.columns([5, 4, 2])
+            c1.markdown(f"**Day {d}** — {dd['title']}")
+            c2.code(link, language=None)
+            c3.link_button("Post to Classroom", classroom.share_url(link, title, body), width="stretch")
 
-    # ---- Representation variant mapping ----
-    with tab_variants:
-        st.markdown(
-            "For the representation-in-imagery research: tell the app which "
-            "instructional image variant each class/section saw for the Day 8 "
-            "parallelogram lesson. This gets attached to every test session from "
-            "that section automatically, so results can be compared by variant "
-            "later without re-entering anything per student."
-        )
-        if "class_variant" not in st.session_state:
-            st.session_state.class_variant = {}
-        sec = st.text_input("Class / Section name", key="variant_section_input")
-        variant = st.selectbox("Image variant shown to this class",
-                                ["Variant A", "Variant B", "Unassigned"], key="variant_choice_input")
-        if st.button("Save mapping"):
-            st.session_state.class_variant[sec] = variant
-            storage.__dict__["_class_variant"] = st.session_state.class_variant
-            st.success(f"{sec} → {variant}")
-        if st.session_state.class_variant:
-            st.table(pd.DataFrame(
-                [{"Class/Section": k, "Variant": v} for k, v in st.session_state.class_variant.items()]
-            ))
-        st.caption(
-            "Note: this mapping currently lives in the app's session memory and resets "
-            "when the app restarts. Once Google Sheets storage is configured (SETUP.md), "
-            "this can be persisted the same way test results are."
-        )
-
-    # ---- Results dashboard ----
-    with tab_results:
-        sessions = pd.DataFrame(storage.load_sessions())
-        items_df = pd.DataFrame(storage.load_item_responses())
-
-        if sessions.empty:
-            st.info("No summative check results yet. Once students submit, results appear here.")
+        st.divider()
+        st.markdown("#### Classroom API sync")
+        if not classroom.api_configured(st.secrets):
+            st.info("Share buttons above work now. To also **pull rosters, create assignments, and push "
+                    "grades automatically**, ask your Google Workspace admin to approve domain-wide "
+                    "delegation for the app's service account, then add `classroom_delegated_user` "
+                    "(your teacher email) to Secrets. Steps: SETUP.md → Classroom API.")
         else:
-            day_choice = st.selectbox("Day", sorted(sessions["day"].astype(int).unique()),
-                                       format_func=lambda d: f"Day {d} — {ALL_DAYS.get(d, {}).get('title', '')}")
-            c1, c2 = st.columns(2)
-            with c1:
-                st.plotly_chart(charts.score_distribution_chart(sessions, day_choice), use_container_width=True)
-            with c2:
-                st.plotly_chart(charts.item_difficulty_chart(items_df, day_choice), use_container_width=True)
+            try:
+                api = classroom.ClassroomAPI(st.secrets)
+                courses = api.list_courses()
+            except Exception as e:
+                st.error(f"Classroom API error: {e}")
+                courses = []
+            if courses:
+                cmap = {c["id"]: c for c in courses}
+                cid = st.selectbox("Course", list(cmap),
+                                   format_func=lambda i: f"{cmap[i]['name']} {cmap[i].get('section', '')}")
+                course = cmap[cid]
+                label = course.get("section") or course["name"]
 
-            st.plotly_chart(charts.growth_over_time_chart(sessions), use_container_width=True)
+                a, b = st.columns(2)
+                with a:
+                    st.markdown("**Roster**")
+                    if st.button("Import this course's roster"):
+                        studs = api.list_students(cid, label)
+                        n = storage.upsert_roster(studs, source=f"classroom:{cid}")
+                        refresh()
+                        st.success(f"Imported {len(studs)} students into '{label}' ({n} total in roster).")
+                with b:
+                    st.markdown("**Create assignments**")
+                    days_sel = st.multiselect("Days", DAY_NUMS, format_func=lambda d: f"Day {d}")
+                    publish = st.toggle("Publish immediately", value=False)
+                    if st.button("Create in Classroom", disabled=not days_sel):
+                        for d in days_sel:
+                            link = classroom.test_link(APP_URL, d)
+                            cw = api.create_assignment(
+                                cid, f"Day {d} Summative Check — {ALL_DAYS[d]['title']}",
+                                "Sign in with your school Google account and complete this check.",
+                                link, publish=publish)
+                            storage.save_classroom_link(cid, course["name"], d, cw["id"], cw.get("alternateLink", ""))
+                        refresh()
+                        st.success(f"Created {len(days_sel)} assignment(s).")
 
-            item_meta = {}
-            for d, day_data in ALL_DAYS.items():
-                for item in day_data["items"]:
-                    item_meta[item["id"]] = {"standard": ",".join(day_data.get("standards", [])) or "Unassigned"}
-            st.plotly_chart(charts.standards_mastery_heatmap(items_df, item_meta), use_container_width=True)
+                links = [l for l in cached("links") if str(l["course_id"]) == str(cid)]
+                if links:
+                    st.markdown("**Push scores to Classroom grades** (points out of 100)")
+                    lmap = {f"Day {l['day']}": l for l in links}
+                    pick = st.selectbox("Assignment", list(lmap))
+                    lk = lmap[pick]
+                    if lk.get("alternate_link"):
+                        st.markdown(f"[Open in Classroom]({lk['alternate_link']})")
+                    if st.button("Sync grades now", type="primary"):
+                        sdf = pd.DataFrame(cached("sessions"))
+                        if sdf.empty:
+                            st.info("No results yet.")
+                        else:
+                            sdf = sdf[(sdf["day"].astype(str) == str(lk["day"])) & (sdf["student_email"] != "")]
+                            best = sdf.assign(p=sdf["score_percent"].astype(float)) \
+                                      .groupby(sdf["student_email"].str.lower())["p"].max().to_dict()
+                            n, missing = api.push_grades(cid, lk["coursework_id"], best)
+                            st.success(f"Updated {n} grade(s) in Classroom.")
+                            if missing:
+                                st.caption("Not in this course: " + ", ".join(missing))
 
-    # ---- Representation research chart ----
+    # ---- Roster ----
+    with tab_roster:
+        st.markdown("Upload a roster CSV from **Google Classroom** or **PowerSchool** (column names are "
+                    "auto-detected). Saved rosters let signed-in students skip typing their class.")
+        default_section = st.text_input("Class/section for rows that don't include one",
+                                        placeholder="e.g., Period 2")
+        up = st.file_uploader("Roster CSV", type=["csv"])
+        if up:
+            students = roster_mod.parse_roster_csv(up.getvalue())
+            for s in students:
+                if not s["class_section"]:
+                    s["class_section"] = default_section
+            st.dataframe(pd.DataFrame(students), hide_index=True)
+            unmapped = roster_mod.unmapped_columns_warning(up.getvalue())
+            if unmapped:
+                st.caption("Columns ignored: " + ", ".join(unmapped))
+            if st.button(f"Save {len(students)} students", type="primary"):
+                n = storage.upsert_roster(students, source="csv")
+                refresh()
+                st.success(f"Saved. Roster now has {n} students.")
+        r = pd.DataFrame(cached("roster"))
+        if not r.empty:
+            st.markdown(f"**Current roster — {len(r)} students**")
+            st.dataframe(r.drop(columns=["updated_at"], errors="ignore"), hide_index=True)
+
+    sessions = pd.DataFrame(cached("sessions"))
+    items_df = pd.DataFrame(cached("items"))
+
+    # ---- Results ----
+    with tab_results:
+        if sessions.empty:
+            st.info("No results yet. They appear here seconds after students submit.")
+        else:
+            sessions["score_percent"] = pd.to_numeric(sessions["score_percent"], errors="coerce")
+            secs = ["All"] + sorted(sessions["class_section"].astype(str).unique())
+            f1, f2 = st.columns(2)
+            sec = f1.selectbox("Class", secs)
+            view = sessions if sec == "All" else sessions[sessions["class_section"].astype(str) == sec]
+            iv = items_df[items_df["session_id"].isin(view["session_id"])] if not items_df.empty else items_df
+            days_taken = sorted(view["day"].astype(int).unique())
+            if not days_taken:
+                st.info("No results for this class yet.")
+            else:
+                d = f2.selectbox("Day", days_taken,
+                                 format_func=lambda x: f"Day {x} — {ALL_DAYS.get(x, {}).get('title', '')}")
+                vd = view[view["day"].astype(int) == d]
+                m = st.columns(4)
+                m[0].metric("Tests submitted", len(vd))
+                m[1].metric("Average", f"{vd['score_percent'].mean():.0f}%")
+                m[2].metric("At/above 70%", f"{(vd['score_percent'] >= 70).mean() * 100:.0f}%")
+                m[3].metric("Below 50%", int((vd["score_percent"] < 50).sum()))
+                c1, c2 = st.columns(2)
+                c1.plotly_chart(charts.score_distribution_chart(view, d), width="stretch")
+                c2.plotly_chart(charts.item_difficulty_chart(iv, d), width="stretch")
+                st.plotly_chart(charts.growth_over_time_chart(view), width="stretch")
+                st.plotly_chart(charts.standards_mastery_heatmap(iv, item_meta()), width="stretch")
+
+    # ---- Students (placement / needs support) ----
+    with tab_students:
+        if sessions.empty:
+            st.info("No results yet.")
+        else:
+            s = sessions.copy()
+            s["score_percent"] = pd.to_numeric(s["score_percent"], errors="coerce")
+            summary = (s.groupby(["student_id", "student_name", "class_section"])
+                        .agg(tests=("day", "count"), average=("score_percent", "mean"),
+                             latest=("score_percent", "last"))
+                        .reset_index())
+            summary["average"] = summary["average"].round(1)
+            summary["support tier"] = pd.cut(summary["average"], [-1, 49.99, 69.99, 101],
+                                             labels=["Intensive", "Strategic", "On track"])
+            st.markdown("**Student overview** (tiers: <50 Intensive · 50–69 Strategic · 70+ On track)")
+            st.dataframe(summary.sort_values("average"), hide_index=True, width="stretch")
+            pick = st.selectbox("Student detail", summary["student_name"].unique(), index=None)
+            if pick:
+                st.dataframe(s[s["student_name"] == pick][["timestamp", "day", "day_title",
+                             "score_correct", "score_total", "score_percent"]], hide_index=True)
+
+    # ---- Variants ----
+    with tab_var:
+        st.markdown("Tag each class with the Day 8 parallelogram image variant it saw. Saved permanently "
+                    "and applied to every future submission from that class.")
+        variants = cached("variants")
+        known = sorted(set(storage.class_sections()) | set(variants))
+        c1, c2, c3 = st.columns([3, 2, 1])
+        sec = c1.selectbox("Class / Section", known, index=None, accept_new_options=True)
+        var = c2.selectbox("Variant", ["Variant A", "Variant B", "Unassigned"])
+        if c3.button("Save", disabled=not sec):
+            storage.set_variant(sec, var)
+            refresh()
+            st.success(f"{sec} → {var}")
+            st.rerun()
+        if variants:
+            st.table(pd.DataFrame([{"Class/Section": k, "Variant": v} for k, v in variants.items()]))
+
+    # ---- Research ----
     with tab_research:
-        st.markdown(
-            "Tracks the **height-vs-slant misconception** (Day 8 → Day 9 → Day 30 "
-            "diagnostic items, same numbers-different-day design) split by which "
-            "representation-image variant each class saw. A falling line means the "
-            "misconception is fading for that group; comparing slopes across variants "
-            "is the actual research signal for whether representation is a factor in "
-            "closing this gap."
-        )
-        sessions = pd.DataFrame(storage.load_sessions())
-        items_df = pd.DataFrame(storage.load_item_responses())
-        if items_df.empty or "research_tag" not in items_df.columns or \
-           not (items_df["research_tag"] == "height_vs_slant_misconception").any():
+        st.markdown("**Height-vs-slant misconception** across Day 8 → Day 9 → Day 30, split by image variant.")
+        if items_df.empty or not (items_df.get("research_tag", pd.Series(dtype=str))
+                                  == "height_vs_slant_misconception").any():
             st.info("No data yet for the tagged diagnostic items (d8_q4, d9_q3, d30_q2).")
         else:
-            st.plotly_chart(
-                charts.misconception_trend_chart(items_df, sessions), use_container_width=True
-            )
-            st.caption(
-                "⚠️ Read this descriptively, not causally: classroom sample sizes are small "
-                "and sections aren't randomly assigned to a variant, so treat differences as "
-                "a hypothesis to investigate further, not proof."
-            )
+            st.plotly_chart(charts.misconception_trend_chart(items_df, sessions), width="stretch")
+            st.caption("Descriptive, not causal: small samples and non-random assignment.")
 
     # ---- Export ----
     with tab_export:
-        sessions = pd.DataFrame(storage.load_sessions())
-        items_df = pd.DataFrame(storage.load_item_responses())
-        if not sessions.empty:
-            st.download_button("Download sessions.csv", sessions.to_csv(index=False),
-                                file_name="sessions.csv", mime="text/csv")
-        if not items_df.empty:
-            st.download_button("Download item_responses.csv", items_df.to_csv(index=False),
-                                file_name="item_responses.csv", mime="text/csv")
-        if sessions.empty and items_df.empty:
+        if sessions.empty:
             st.info("No data yet to export.")
+        else:
+            st.download_button("Download sessions.csv", sessions.to_csv(index=False), "sessions.csv", "text/csv")
+            st.download_button("Download item_responses.csv", items_df.to_csv(index=False),
+                               "item_responses.csv", "text/csv")
+            gb = sessions.pivot_table(index=["student_id", "student_name", "class_section"],
+                                      columns="day", values="score_percent", aggfunc="max")
+            gb.columns = [f"Day {c}" for c in gb.columns]
+            st.download_button("Download gradebook (one row per student)",
+                               gb.reset_index().to_csv(index=False), "gradebook.csv", "text/csv")
+            st.caption("Gradebook CSV works for PowerSchool score import and manual Classroom entry.")
+        if STORAGE_STATUS == "live":
+            st.markdown(f"[Open the live results Google Sheet]({storage.sheet_url})")
+
+    with tab_setup:
+        setup_status_panel()
 
 # ========================================================= ADMIN VIEW-ONLY =
-if mode == "Admin — View Only":
+elif mode == "Admin — View Only":
     st.subheader("Admin — View Only")
-    st.caption(
-        "Aggregate results only (no student names, no roster, no export, no settings) — "
-        "for CPA administrators who need visibility into cohort performance without "
-        "access to individual student records or the ability to change anything."
-    )
-
-    configured_admin_pin = None
-    try:
-        configured_admin_pin = st.secrets.get("admin_pin")
-    except Exception:
-        pass
-    configured_admin_pin = configured_admin_pin or "cpaview"  # change this in secrets.toml
-
-    admin_pin = st.text_input("Admin PIN", type="password", key="admin_pin_input")
-    if admin_pin != configured_admin_pin:
-        st.info(
-            "Enter the admin PIN to view cohort-level results. Set your own in "
-            "`.streamlit/secrets.toml` (`admin_pin = \"...\"`) — use a **different** PIN "
-            "from the teacher PIN, since this role is meant to be more restricted, not "
-            "just another copy of teacher access."
-        )
+    st.caption("Aggregate results only — no student names, roster, export, or settings.")
+    require_staff("admin")
+    if not LIVE_OK:
+        st.error(f"Storage: {STORAGE_MSG}")
         st.stop()
-
-    sessions = pd.DataFrame(storage.load_sessions())
-    items_df = pd.DataFrame(storage.load_item_responses())
-
+    sessions = pd.DataFrame(cached("sessions"))
+    items_df = pd.DataFrame(cached("items"))
     if sessions.empty:
         st.info("No summative check results yet.")
     else:
-        st.plotly_chart(charts.growth_over_time_chart(sessions), use_container_width=True)
-        item_meta = {}
-        for d, day_data in ALL_DAYS.items():
-            for item in day_data["items"]:
-                item_meta[item["id"]] = {"standard": ",".join(day_data.get("standards", [])) or "Unassigned"}
-        st.plotly_chart(charts.standards_mastery_heatmap(items_df, item_meta), use_container_width=True)
-
-        if not items_df.empty and "research_tag" in items_df.columns and \
-           (items_df["research_tag"] == "height_vs_slant_misconception").any():
-            st.plotly_chart(charts.misconception_trend_chart(items_df, sessions), use_container_width=True)
-
-    with st.expander("How parents see results (Google Classroom & PowerSchool)"):
-        st.markdown(
-            "This app is a place to **administer and autograde** the summative checks — "
-            "it is not where parents log in. Parents already have accounts in Classroom "
-            "and PowerSchool, so the plan is to make scores show up **there**, not to add "
-            "a third portal:\n\n"
-            "- **Google Classroom:** once a score exists here, it gets entered as a grade "
-            "on the matching Classroom assignment. Any parent already registered as a "
-            "*Guardian* on that student's Classroom account automatically gets Classroom's "
-            "own weekly email summary of grades — nothing new to build for parents "
-            "specifically, as long as scores are posted to Classroom.\n"
-            "- **PowerSchool:** same idea — once posted to a PowerSchool gradebook "
-            "assignment, it shows up in the PowerSchool Parent Portal parents already use.\n\n"
-            "**Today:** scores can be exported from the Teacher Portal's Export tab and "
-            "entered into Classroom/PowerSchool by hand, or via PowerSchool's bulk score "
-            "import if your school's instance supports it (confirm the exact import path "
-            "with your SIS admin — it varies by district configuration).\n\n"
-            "**Later:** automatic posting needs the same district-issued API credentials "
-            "as roster sync (Google Cloud OAuth client + PowerSchool API/plugin key) — "
-            "once those exist, this export step goes away and scores post automatically."
-        )
+        s = sessions.copy()
+        s["score_percent"] = pd.to_numeric(s["score_percent"], errors="coerce")
+        m = st.columns(3)
+        m[0].metric("Tests submitted", len(s))
+        m[1].metric("Students tested", s["student_id"].nunique())
+        m[2].metric("Average score", f"{s['score_percent'].mean():.0f}%")
+        by_class = s.groupby("class_section")["score_percent"].agg(["count", "mean"]).round(1)
+        by_class.columns = ["tests", "average %"]
+        st.dataframe(by_class, width="stretch")
+        st.plotly_chart(charts.growth_over_time_chart(s), width="stretch")
+        st.plotly_chart(charts.standards_mastery_heatmap(items_df, item_meta()), width="stretch")
+        if not items_df.empty and (items_df["research_tag"] == "height_vs_slant_misconception").any():
+            st.plotly_chart(charts.misconception_trend_chart(items_df, s), width="stretch")

@@ -111,6 +111,7 @@ def standards_mastery_heatmap(item_responses_df: pd.DataFrame, item_meta: dict) 
     df = item_responses_df.copy()
     df["correct"] = df["correct"].astype(str).str.lower().isin(["true", "1"])
     df["standard"] = df["item_id"].map(lambda i: item_meta.get(i, {}).get("standard", "Unknown"))
+    df["day"] = pd.to_numeric(df["day"], errors="coerce")
 
     pivot = df.pivot_table(index="standard", columns="day", values="correct", aggfunc="mean") * 100
     pivot = pivot.sort_index()
