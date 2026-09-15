@@ -1,0 +1,61 @@
+{
+  "day": 9,
+  "title": "Area of a Parallelogram — Refine, Practice & Quiz",
+  "topic": "Cumulative review of area strategies from Days 5-8",
+  "standards": ["6.G.1"],
+  "items": [
+    {
+      "id": "d9_q1",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
+      "prompt": "A parallelogram has a base of 9 units and a height of 7 units. What is its area?",
+      "formula": "9*7",
+      "answer": 63,
+      "rationale": "9 x 7 = 63 square units."
+    },
+    {
+      "id": "d9_q2",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
+      "prompt": "A rectangle has an area of 96 square units and a width of 8 units. What is its length?",
+      "formula": "96/8",
+      "answer": 12,
+      "rationale": "96 / 8 = 12."
+    },
+    {
+      "id": "d9_q3",
+      "type": "multiple_choice",
+      "difficulty": "challenge",
+      "research_tag": "height_vs_slant_misconception",
+      "retest_pair": "d8_q4",
+      "prompt": "A parallelogram has a base of 11 units, a height of 4 units, and a slanted side of 7 units. What is its area?",
+      "choices": {"A": "44 square units", "B": "77 square units", "C": "15 square units", "D": "11 square units"},
+      "answer": "A",
+      "misconception_key": {
+        "A": "correct — used base x height",
+        "B": "used the slanted side instead of the perpendicular height (the target misconception for the representation study)",
+        "C": "added base + height instead of multiplying",
+        "D": "used only one dimension (base) and ignored height"
+      },
+      "rationale": "Area = base x height = 11 x 4 = 44. This item is intentionally identical in structure to Day 8's d8_q4 (same distractor types, new numbers) so the same misconception can be tracked before/after and across representation-image conditions."
+    },
+    {
+      "id": "d9_q4",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
+      "prompt": "An L-shaped figure is enclosed by a 9-by-8 rectangle with a 3-by-2 missing corner. What is the L-shape's area?",
+      "formula": "(9*8)-(3*2)",
+      "answer": 66,
+      "rationale": "72 - 6 = 66 square units."
+    },
+    {
+      "id": "d9_q5",
+      "type": "multiple_choice",
+      "difficulty": "grade-level",
+      "prompt": "Which shape's area formula requires identifying the perpendicular height, not the slanted side length?",
+      "choices": {"A": "Rectangle", "B": "Square", "C": "Parallelogram", "D": "All of the above use only side lengths"},
+      "answer": "C",
+      "rationale": "A parallelogram's slanted side is not the same as its height, so the height must be identified separately."
+    }
+  ]
+}

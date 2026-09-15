@@ -1,0 +1,25 @@
+{
+  "day": 17,
+  "title": "Ratio Tables and Equivalent Ratios",
+  "topic": "Scaling ratios up and down; identifying equivalent ratios",
+  "standards": ["6.RP.3a"],
+  "items": [
+    {"id": "d17_q1", "type": "numeric_entry", "difficulty": "grade-level",
+      "prompt": "The ratio 2:5 is scaled up by a factor of 3. What is the new first number?",
+      "formula": "2*3", "answer": 6, "rationale": "2 x 3 = 6."},
+    {"id": "d17_q2", "type": "numeric_entry", "difficulty": "grade-level",
+      "prompt": "Using the same scale factor of 3 on the ratio 2:5, what is the new second number?",
+      "formula": "5*3", "answer": 15, "rationale": "5 x 3 = 15, giving the equivalent ratio 6:15."},
+    {"id": "d17_q3", "type": "multiple_choice", "difficulty": "grade-level",
+      "prompt": "Which ratio is equivalent to 3:4?",
+      "choices": {"A": "6:9", "B": "6:8", "C": "9:11", "D": "4:3"}, "answer": "B",
+      "rationale": "Multiplying both terms of 3:4 by 2 gives 6:8."},
+    {"id": "d17_q4", "type": "numeric_entry", "difficulty": "warm-up",
+      "prompt": "A ratio table shows 1:4, 2:8, 3:12, following a pattern. What number completes 4:__?",
+      "formula": "4*4", "answer": 16, "rationale": "Each pair follows n : 4n, so 4:16."},
+    {"id": "d17_q5", "type": "multiple_choice", "difficulty": "challenge",
+      "prompt": "Two ratios are equivalent when:",
+      "choices": {"A": "They have the same sum", "B": "One can be obtained from the other by multiplying or dividing both terms by the same number", "C": "They have the same first number", "D": "They have the same difference"},
+      "answer": "B", "rationale": "Equivalent ratios scale by the same factor applied to both terms."}
+  ]
+}

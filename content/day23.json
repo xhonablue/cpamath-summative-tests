@@ -1,0 +1,24 @@
+{
+  "day": 23,
+  "title": "Solving One-Step Equations",
+  "topic": "Using inverse operations to solve equations",
+  "standards": ["6.EE.5", "6.EE.7"],
+  "items": [
+    {"id": "d23_q1", "type": "numeric_entry", "difficulty": "warm-up",
+      "prompt": "Solve for x: x + 9 = 15",
+      "formula": "15-9", "answer": 6, "rationale": "Subtract 9 from both sides: x = 6."},
+    {"id": "d23_q2", "type": "numeric_entry", "difficulty": "grade-level",
+      "prompt": "Solve for x: x - 7 = 12",
+      "formula": "12+7", "answer": 19, "rationale": "Add 7 to both sides: x = 19."},
+    {"id": "d23_q3", "type": "numeric_entry", "difficulty": "grade-level",
+      "prompt": "Solve for x: 6x = 42",
+      "formula": "42/6", "answer": 7, "rationale": "Divide both sides by 6: x = 7."},
+    {"id": "d23_q4", "type": "numeric_entry", "difficulty": "grade-level",
+      "prompt": "Solve for x: x/4 = 9",
+      "formula": "9*4", "answer": 36, "rationale": "Multiply both sides by 4: x = 36."},
+    {"id": "d23_q5", "type": "multiple_choice", "difficulty": "challenge",
+      "prompt": "To solve the equation x + 8 = 20, which operation should you perform on both sides?",
+      "choices": {"A": "Add 8", "B": "Subtract 8", "C": "Multiply by 8", "D": "Divide by 8"}, "answer": "B",
+      "rationale": "Subtracting 8 from both sides isolates x."}
+  ]
+}

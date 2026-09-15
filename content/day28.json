@@ -1,0 +1,26 @@
+{
+  "day": 28,
+  "title": "The Four-Quadrant Coordinate Plane",
+  "topic": "Plotting and identifying points in all four quadrants",
+  "standards": ["6.NS.6b", "6.NS.8"],
+  "items": [
+    {"id": "d28_q1", "type": "multiple_choice", "difficulty": "grade-level",
+      "prompt": "The point (3, -4) is located in which quadrant?",
+      "choices": {"A": "I", "B": "II", "C": "III", "D": "IV"}, "answer": "D",
+      "rationale": "Positive x, negative y places a point in Quadrant IV."},
+    {"id": "d28_q2", "type": "multiple_choice", "difficulty": "grade-level",
+      "prompt": "The point (-2, 5) is located in which quadrant?",
+      "choices": {"A": "I", "B": "II", "C": "III", "D": "IV"}, "answer": "B",
+      "rationale": "Negative x, positive y places a point in Quadrant II."},
+    {"id": "d28_q3", "type": "short_answer", "difficulty": "warm-up",
+      "prompt": "What are the coordinates of the origin?",
+      "answer": "(0,0)", "rationale": "The origin is where the x-axis and y-axis cross, at (0, 0)."},
+    {"id": "d28_q4", "type": "multiple_choice", "difficulty": "grade-level",
+      "prompt": "A point with a negative x-coordinate and a negative y-coordinate is located in:",
+      "choices": {"A": "Quadrant I", "B": "Quadrant II", "C": "Quadrant III", "D": "Quadrant IV"}, "answer": "C",
+      "rationale": "Negative x, negative y places a point in Quadrant III."},
+    {"id": "d28_q5", "type": "numeric_entry", "difficulty": "challenge",
+      "prompt": "Point A is at (2, 3) and Point B is at (2, -3). Since they share the same x-coordinate, what is the vertical distance between them?",
+      "formula": "abs(3-(-3))", "answer": 6, "rationale": "Distance = |3 - (-3)| = 6."}
+  ]
+}

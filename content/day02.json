@@ -1,0 +1,54 @@
+{
+  "day": 2,
+  "title": "Getting to Know You: Data Reveal",
+  "topic": "Statistical questions, sample vs. population, confounding variables",
+  "standards": ["6.SP.1", "6.SP.5"],
+  "items": [
+    {
+      "id": "d2_q1",
+      "type": "multiple_choice",
+      "difficulty": "grade-level",
+      "prompt": "The class collected data from 12 of the 42 students in the class. This group of 12 students is called a:",
+      "choices": {"A": "Population", "B": "Sample", "C": "Variable", "D": "Outlier"},
+      "answer": "B",
+      "rationale": "A sample is a smaller group selected from the larger population."
+    },
+    {
+      "id": "d2_q2",
+      "type": "multiple_choice",
+      "difficulty": "grade-level",
+      "prompt": "The full group of 42 students in the class is called the:",
+      "choices": {"A": "Sample", "B": "Population", "C": "Confounding variable", "D": "Survey station"},
+      "answer": "B",
+      "rationale": "The population is the entire group being studied."
+    },
+    {
+      "id": "d2_q3",
+      "type": "multiple_choice",
+      "difficulty": "challenge",
+      "prompt": "Suppose students who sit in the front row both wear glasses more often AND raise their hands more often. Seat location could be a confounding variable because:",
+      "choices": {"A": "It has nothing to do with either behavior", "B": "It might influence both variables, making them appear connected when they aren't directly related", "C": "It always causes hand-raising directly", "D": "Confounding variables never affect real data"},
+      "answer": "B",
+      "rationale": "A confounding variable is a hidden factor that can affect two other variables, creating a misleading relationship."
+    },
+    {
+      "id": "d2_q4",
+      "type": "multiple_choice",
+      "difficulty": "grade-level",
+      "prompt": "Which of these is a statistical question?",
+      "choices": {"A": "How old am I?", "B": "How old are the students in my class?", "C": "What is 5 + 3?", "D": "What color is this marker?"},
+      "answer": "B",
+      "rationale": "A statistical question anticipates variability in the data collected to answer it (different students have different ages)."
+    },
+    {
+      "id": "d2_q5",
+      "type": "numeric_entry",
+      "difficulty": "spiral-review",
+      "prompt": "If 12 out of 42 students were surveyed, what percent of the class was surveyed? Round to the nearest whole percent.",
+      "formula": "round(12/42*100)",
+      "answer": 29,
+      "accept_range": [28, 29],
+      "rationale": "12 / 42 = 0.2857... = about 28.6%, which rounds to 29%."
+    }
+  ]
+}

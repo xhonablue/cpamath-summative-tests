@@ -1,0 +1,53 @@
+{
+  "day": 7,
+  "title": "Area of Compound Rectangles",
+  "topic": "Decompose-and-add vs. enclose-and-subtract strategies",
+  "standards": ["6.G.1"],
+  "items": [
+    {
+      "id": "d7_q1",
+      "type": "multiple_choice",
+      "difficulty": "grade-level",
+      "prompt": "One way to find the area of an L-shaped figure is to:",
+      "choices": {"A": "Enclose it in one large rectangle, then subtract the missing piece", "B": "Multiply all the side lengths together at once", "C": "Only measure the longest side", "D": "Ignore the missing piece"},
+      "answer": "A",
+      "rationale": "The enclose-and-subtract method surrounds the shape with a rectangle and removes the extra area."
+    },
+    {
+      "id": "d7_q2",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
+      "prompt": "A large rectangle measures 12 by 10 (area 120). A 4-by-3 rectangular corner (area 12) is missing to form an L-shape. What is the area of the L-shaped figure?",
+      "formula": "(12*10)-(4*3)",
+      "answer": 108,
+      "rationale": "120 - 12 = 108 square units."
+    },
+    {
+      "id": "d7_q3",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
+      "prompt": "An L-shape is decomposed into Rectangle 1 (6 by 5) and Rectangle 2 (3 by 4). What is the total area?",
+      "formula": "(6*5)+(3*4)",
+      "answer": 42,
+      "rationale": "(6 x 5) + (3 x 4) = 30 + 12 = 42 square units."
+    },
+    {
+      "id": "d7_q4",
+      "type": "multiple_choice",
+      "difficulty": "challenge",
+      "prompt": "For a trickier T-shaped figure, which strategy works?",
+      "choices": {"A": "Only the enclose-and-subtract method works", "B": "Only the decompose-and-add method works", "C": "Either enclose-and-subtract or decompose-and-add can work, depending on the shape", "D": "Neither method works for T-shapes"},
+      "answer": "C",
+      "rationale": "Both strategies are valid tools; which one is easiest depends on how the figure is shaped."
+    },
+    {
+      "id": "d7_q5",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
+      "prompt": "A T-shaped figure is split into two rectangles: one 8 by 3, and one 2 by 6. What is the total area?",
+      "formula": "(8*3)+(2*6)",
+      "answer": 36,
+      "rationale": "(8 x 3) + (2 x 6) = 24 + 12 = 36 square units."
+    }
+  ]
+}

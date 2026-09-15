@@ -1,0 +1,53 @@
+{
+  "day": 1,
+  "title": "What Is Math?",
+  "topic": "Mathematical modeling with geometric shapes",
+  "standards": ["MP.4 Model with mathematics", "6.G.1 (readiness)"],
+  "items": [
+    {
+      "id": "d1_q1",
+      "type": "multiple_choice",
+      "difficulty": "grade-level",
+      "prompt": "On Day 1, the class simulated an imagined object using shapes on graph paper. What does it mean to \"simulate\" an object this way?",
+      "choices": {"A": "Copy a photo of it exactly, pixel by pixel", "B": "Use basic geometric shapes to represent the object's key features", "C": "Write a paragraph describing the object instead of drawing it", "D": "Measure the real object with a ruler and stop there"},
+      "answer": "B",
+      "rationale": "A mathematical model uses simple shapes to capture the important structure of a real object, not an exact copy."
+    },
+    {
+      "id": "d1_q2",
+      "type": "multiple_choice",
+      "difficulty": "grade-level",
+      "prompt": "A student draws a backpack using two rectangles and one triangle. This drawing is an example of:",
+      "choices": {"A": "An exact replica of the backpack", "B": "A mathematical model that captures the object's important shapes", "C": "An optical illusion", "D": "A coordinate graph"},
+      "answer": "B",
+      "rationale": "Modeling means representing key features with simpler shapes, not creating an exact replica."
+    },
+    {
+      "id": "d1_q3",
+      "type": "multiple_choice",
+      "difficulty": "warm-up",
+      "prompt": "Which shape has exactly 4 sides and 4 right angles, by definition?",
+      "choices": {"A": "Triangle", "B": "Rectangle", "C": "Pentagon", "D": "Circle"},
+      "answer": "B",
+      "rationale": "A rectangle is defined as a quadrilateral with four right angles."
+    },
+    {
+      "id": "d1_q4",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
+      "prompt": "A rectangle used to model a book is 3 units wide and 5 units long on graph paper. How many square units does the rectangle cover?",
+      "formula": "3*5",
+      "answer": 15,
+      "rationale": "Area of a rectangle = length x width = 5 x 3 = 15 square units."
+    },
+    {
+      "id": "d1_q5",
+      "type": "multiple_choice",
+      "difficulty": "challenge",
+      "prompt": "Why do mathematicians often use simple shapes instead of exact, detailed drawings to model real objects?",
+      "choices": {"A": "Simple shapes are more colorful", "B": "Simple shapes make the important structure easier to measure and analyze", "C": "Detailed drawings are against the rules", "D": "Simple shapes always take longer to draw"},
+      "answer": "B",
+      "rationale": "Models simplify reality so the important structure (like size and shape relationships) is easier to work with mathematically."
+    }
+  ]
+}

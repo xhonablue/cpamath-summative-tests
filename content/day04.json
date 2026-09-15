@@ -1,0 +1,53 @@
+{
+  "day": 4,
+  "title": "Testing the Model",
+  "topic": "Revising models with new data; Engage/Explore/Enrich structure",
+  "standards": ["MP.4 Model with mathematics", "6.SP.2 (readiness)"],
+  "items": [
+    {
+      "id": "d4_q1",
+      "type": "multiple_choice",
+      "difficulty": "grade-level",
+      "prompt": "After building a math model, why is it important to test it against new data?",
+      "choices": {"A": "Testing is never necessary once a model is built", "B": "To check whether the model still makes accurate predictions, and revise it if needed", "C": "To make the model more complicated", "D": "Models should never be revised"},
+      "answer": "B",
+      "rationale": "Good models are checked against real data and revised if they no longer fit."
+    },
+    {
+      "id": "d4_q2",
+      "type": "multiple_choice",
+      "difficulty": "grade-level",
+      "prompt": "\"Engage / Explore / Enrich\" describes:",
+      "choices": {"A": "Three separate schools", "B": "Three stages of a lesson: engage with the idea, explore it hands-on, then enrich with deeper practice", "C": "Three types of standardized tests", "D": "Three grade levels"},
+      "answer": "B",
+      "rationale": "It's a three-part lesson structure moving from introduction to hands-on work to deeper practice."
+    },
+    {
+      "id": "d4_q3",
+      "type": "multiple_choice",
+      "difficulty": "grade-level",
+      "prompt": "A student's model predicted 20 classmates would prefer pizza, but a survey showed 26 actually preferred pizza. What should the student do?",
+      "choices": {"A": "Ignore the difference", "B": "Revise the model so it better fits the real data", "C": "Delete all the survey data", "D": "Assume the survey must be wrong without checking"},
+      "answer": "B",
+      "rationale": "When a model doesn't match real data, mathematicians revise the model rather than dismiss the data."
+    },
+    {
+      "id": "d4_q4",
+      "type": "numeric_entry",
+      "difficulty": "warm-up",
+      "prompt": "A model predicted 20 students; the actual survey result was 26 students. What is the difference between the actual and predicted values?",
+      "formula": "26-20",
+      "answer": 6,
+      "rationale": "26 - 20 = 6."
+    },
+    {
+      "id": "d4_q5",
+      "type": "multiple_choice",
+      "difficulty": "challenge",
+      "prompt": "Journaling about math work during Engage/Explore/Enrich time helps students most by:",
+      "choices": {"A": "Providing a record of thinking and reasoning to revisit and revise", "B": "Replacing the need to practice skills", "C": "Counting only as a grade, with no other purpose", "D": "Being purely decorative"},
+      "answer": "A",
+      "rationale": "Journaling captures a student's reasoning so it can be reviewed and built on later."
+    }
+  ]
+}

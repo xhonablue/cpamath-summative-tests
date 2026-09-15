@@ -1,0 +1,53 @@
+{
+  "day": 13,
+  "title": "Percent Word Problems",
+  "topic": "Discount, tax, and tip applications",
+  "standards": ["6.RP.3c"],
+  "items": [
+    {
+      "id": "d13_q1",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
+      "prompt": "A shirt costs $40 and is on sale for 25% off. How many dollars is the discount?",
+      "formula": "0.25*40",
+      "answer": 10,
+      "rationale": "0.25 x $40 = $10 discount."
+    },
+    {
+      "id": "d13_q2",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
+      "prompt": "Using the same $40 shirt with a $10 discount, what is the sale price?",
+      "formula": "40-(0.25*40)",
+      "answer": 30,
+      "rationale": "$40 - $10 = $30."
+    },
+    {
+      "id": "d13_q3",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
+      "prompt": "A meal costs $50 before tax. Sales tax is 8%. How much is the tax, in dollars?",
+      "formula": "0.08*50",
+      "answer": 4,
+      "rationale": "0.08 x $50 = $4."
+    },
+    {
+      "id": "d13_q4",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
+      "prompt": "A customer wants to leave a 20% tip on a $35 bill. How much is the tip, in dollars?",
+      "formula": "0.20*35",
+      "answer": 7,
+      "rationale": "0.20 x $35 = $7."
+    },
+    {
+      "id": "d13_q5",
+      "type": "multiple_choice",
+      "difficulty": "challenge",
+      "prompt": "To find the total cost after adding 8% sales tax to a price, you can:",
+      "choices": {"A": "Multiply the price by 0.08 and stop there", "B": "Multiply the price by 1.08", "C": "Multiply the price by 8", "D": "Add 8 to the price"},
+      "answer": "B",
+      "rationale": "Multiplying by 1.08 adds the original 100% of the price plus the 8% tax in one step."
+    }
+  ]
+}

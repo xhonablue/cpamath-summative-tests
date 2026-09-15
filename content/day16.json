@@ -1,0 +1,26 @@
+{
+  "day": 16,
+  "title": "Understanding Ratios",
+  "topic": "Ratio concept and ratio language",
+  "standards": ["6.RP.1"],
+  "items": [
+    {"id": "d16_q1", "type": "multiple_choice", "difficulty": "warm-up",
+      "prompt": "A recipe uses 2 cups of flour for every 3 cups of sugar. This relationship is an example of a:",
+      "choices": {"A": "Ratio", "B": "Percent", "C": "Equation", "D": "Inequality"}, "answer": "A",
+      "rationale": "A ratio compares two quantities, like 2 cups flour to 3 cups sugar."},
+    {"id": "d16_q2", "type": "short_answer", "difficulty": "grade-level",
+      "prompt": "Write the ratio of 2 cups of flour to 3 cups of sugar using a colon.",
+      "answer": "2:3", "rationale": "A ratio can be written as part:part using a colon."},
+    {"id": "d16_q3", "type": "multiple_choice", "difficulty": "grade-level",
+      "prompt": "In a jar there are 4 red marbles and 5 blue marbles, a ratio of 4:5. Which number represents the red marbles?",
+      "choices": {"A": "5", "B": "9", "C": "4", "D": "20"}, "answer": "C",
+      "rationale": "The first number in the ratio 4:5 corresponds to red marbles."},
+    {"id": "d16_q4", "type": "numeric_entry", "difficulty": "warm-up",
+      "prompt": "A classroom has 12 boys and 15 girls. What is the total number of students?",
+      "formula": "12+15", "answer": 27, "rationale": "12 + 15 = 27."},
+    {"id": "d16_q5", "type": "short_answer", "difficulty": "challenge",
+      "prompt": "A classroom has 12 boys and 15 girls. Write the ratio of boys to girls in simplest form.",
+      "formula": "gcd(12,15)=3 -> 4:5", "answer": "4:5",
+      "rationale": "12:15 shares a common factor of 3; dividing both terms by 3 gives 4:5."}
+  ]
+}

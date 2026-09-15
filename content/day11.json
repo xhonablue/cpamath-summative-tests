@@ -1,0 +1,53 @@
+{
+  "day": 11,
+  "title": "Understanding Percent",
+  "topic": "Percent as a rate per 100; percent-decimal-fraction equivalence",
+  "standards": ["6.RP.3c"],
+  "items": [
+    {
+      "id": "d11_q1",
+      "type": "multiple_choice",
+      "difficulty": "warm-up",
+      "prompt": "45% means:",
+      "choices": {"A": "45 out of 10", "B": "45 out of 100", "C": "45 out of 1", "D": "45 out of 1000"},
+      "answer": "B",
+      "rationale": "\"Percent\" means \"per hundred,\" so 45% = 45/100."
+    },
+    {
+      "id": "d11_q2",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
+      "prompt": "Write 60% as a decimal.",
+      "formula": "60/100",
+      "answer": 0.6,
+      "rationale": "60% = 60/100 = 0.60."
+    },
+    {
+      "id": "d11_q3",
+      "type": "short_answer",
+      "difficulty": "grade-level",
+      "prompt": "Write 25% as a fraction in simplest form.",
+      "formula": "Fraction(25,100)",
+      "answer": "1/4",
+      "rationale": "25/100 simplifies to 1/4."
+    },
+    {
+      "id": "d11_q4",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
+      "prompt": "Write 0.08 as a percent (give just the number).",
+      "formula": "0.08*100",
+      "answer": 8,
+      "rationale": "0.08 = 8/100 = 8%."
+    },
+    {
+      "id": "d11_q5",
+      "type": "multiple_choice",
+      "difficulty": "challenge",
+      "prompt": "Which of these is equivalent to 3/4?",
+      "choices": {"A": "34%", "B": "75%", "C": "43%", "D": "7.4%"},
+      "answer": "B",
+      "rationale": "3/4 = 0.75 = 75%."
+    }
+  ]
+}

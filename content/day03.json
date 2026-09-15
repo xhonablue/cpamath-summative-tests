@@ -1,0 +1,54 @@
+{
+  "day": 3,
+  "title": "Hear From Us: Skits & Focus",
+  "topic": "Bar graphs, categorical data, interpreting data displays",
+  "standards": ["6.SP.4", "6.SP.5"],
+  "items": [
+    {
+      "id": "d3_q1",
+      "type": "multiple_choice",
+      "difficulty": "grade-level",
+      "prompt": "In the Human Bar Graph activity, each student's position represents:",
+      "choices": {"A": "A random spot with no meaning", "B": "A data value for a category, with more students forming taller groups", "C": "Their favorite color", "D": "The day of the week"},
+      "answer": "B",
+      "rationale": "In a human bar graph, group size (how many students stand in a line) represents frequency, just like bar height in a bar graph."
+    },
+    {
+      "id": "d3_q2",
+      "type": "numeric_entry",
+      "difficulty": "warm-up",
+      "prompt": "The Keep-or-Rid class vote had these tallies: Keep = 18, Rid = 24. How many students voted in total?",
+      "formula": "18+24",
+      "answer": 42,
+      "rationale": "18 + 24 = 42 total votes."
+    },
+    {
+      "id": "d3_q3",
+      "type": "multiple_choice",
+      "difficulty": "grade-level",
+      "prompt": "Using the same vote (Keep = 18, Rid = 24), which category received more votes?",
+      "choices": {"A": "Keep", "B": "Rid", "C": "They are equal", "D": "Cannot be determined"},
+      "answer": "B",
+      "rationale": "24 (Rid) is greater than 18 (Keep)."
+    },
+    {
+      "id": "d3_q4",
+      "type": "multiple_choice",
+      "difficulty": "grade-level",
+      "prompt": "A bar graph is most useful for displaying:",
+      "choices": {"A": "How one value changes continuously over time", "B": "The frequency of items across different categories", "C": "Every individual data point in exact detail", "D": "Only numbers greater than 100"},
+      "answer": "B",
+      "rationale": "Bar graphs compare frequencies or amounts across separate categories."
+    },
+    {
+      "id": "d3_q5",
+      "type": "numeric_entry",
+      "difficulty": "challenge",
+      "prompt": "Using Keep = 18, Rid = 24 (42 total votes), what percent of votes were \"Rid\"? Round to the nearest whole percent.",
+      "formula": "round(24/42*100)",
+      "answer": 57,
+      "accept_range": [57, 57],
+      "rationale": "24 / 42 = 0.5714... = about 57.1%, which rounds to 57%."
+    }
+  ]
+}

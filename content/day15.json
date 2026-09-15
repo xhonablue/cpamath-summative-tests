@@ -1,0 +1,53 @@
+{
+  "day": 15,
+  "title": "Percent — Refine & Quiz",
+  "topic": "Cumulative review of percent of a quantity, discount/tax/tip, and finding the whole",
+  "standards": ["6.RP.3c"],
+  "items": [
+    {
+      "id": "d15_q1",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
+      "prompt": "Find 40% of 90.",
+      "formula": "0.40*90",
+      "answer": 36,
+      "rationale": "0.40 x 90 = 36."
+    },
+    {
+      "id": "d15_q2",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
+      "prompt": "A jacket originally priced at $60 is discounted 30%. What is the sale price?",
+      "formula": "60-(0.30*60)",
+      "answer": 42,
+      "rationale": "Discount = 0.30 x $60 = $18. Sale price = $60 - $18 = $42."
+    },
+    {
+      "id": "d15_q3",
+      "type": "numeric_entry",
+      "difficulty": "challenge",
+      "prompt": "15% of a number is 12. What is the number?",
+      "formula": "12/0.15",
+      "answer": 80,
+      "rationale": "12 / 0.15 = 80."
+    },
+    {
+      "id": "d15_q4",
+      "type": "multiple_choice",
+      "difficulty": "grade-level",
+      "prompt": "Which of these is NOT equal to 1/5?",
+      "choices": {"A": "20%", "B": "0.2", "C": "2/10", "D": "15%"},
+      "answer": "D",
+      "rationale": "1/5 = 0.2 = 20% = 2/10. 15% is not equivalent."
+    },
+    {
+      "id": "d15_q5",
+      "type": "numeric_entry",
+      "difficulty": "challenge",
+      "prompt": "A $25 meal has an 18% tip added. What is the total cost, including the tip?",
+      "formula": "25+(0.18*25)",
+      "answer": 29.5,
+      "rationale": "Tip = 0.18 x $25 = $4.50. Total = $25 + $4.50 = $29.50."
+    }
+  ]
+}

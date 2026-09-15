@@ -1,0 +1,53 @@
+{
+  "day": 12,
+  "title": "Finding the Percent of a Quantity",
+  "topic": "Percent x whole = part",
+  "standards": ["6.RP.3c"],
+  "items": [
+    {
+      "id": "d12_q1",
+      "type": "numeric_entry",
+      "difficulty": "warm-up",
+      "prompt": "Find 20% of 80.",
+      "formula": "0.20*80",
+      "answer": 16,
+      "rationale": "0.20 x 80 = 16."
+    },
+    {
+      "id": "d12_q2",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
+      "prompt": "Find 50% of 46.",
+      "formula": "0.50*46",
+      "answer": 23,
+      "rationale": "50% of a number is half of it: 46 / 2 = 23."
+    },
+    {
+      "id": "d12_q3",
+      "type": "numeric_entry",
+      "difficulty": "warm-up",
+      "prompt": "Find 10% of 250.",
+      "formula": "0.10*250",
+      "answer": 25,
+      "rationale": "10% of a number moves the decimal one place: 250 x 0.10 = 25."
+    },
+    {
+      "id": "d12_q4",
+      "type": "multiple_choice",
+      "difficulty": "grade-level",
+      "prompt": "To find 15% of a number, which expression is correct?",
+      "choices": {"A": "number / 15", "B": "number x 0.15", "C": "number x 15", "D": "number - 15"},
+      "answer": "B",
+      "rationale": "Convert the percent to a decimal (15% = 0.15) and multiply by the number."
+    },
+    {
+      "id": "d12_q5",
+      "type": "numeric_entry",
+      "difficulty": "challenge",
+      "prompt": "Find 75% of 160.",
+      "formula": "0.75*160",
+      "answer": 120,
+      "rationale": "0.75 x 160 = 120."
+    }
+  ]
+}

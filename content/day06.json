@@ -1,0 +1,53 @@
+{
+  "day": 6,
+  "title": "Area Unlocks the Missing Side",
+  "topic": "Finding a missing side from area; combining rectangle areas",
+  "standards": ["6.G.1", "6.EE.7"],
+  "items": [
+    {
+      "id": "d6_q1",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
+      "prompt": "A rectangle has an area of 72 square units and one side of 8 units. What is the length of the other side?",
+      "formula": "72/8",
+      "answer": 9,
+      "rationale": "Missing side = area / known side = 72 / 8 = 9."
+    },
+    {
+      "id": "d6_q2",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
+      "prompt": "A square has an area of 49 square units. What is the length of one side?",
+      "formula": "sqrt(49)",
+      "answer": 7,
+      "rationale": "A square's area = side x side, so the side length is the square root of the area: sqrt(49) = 7."
+    },
+    {
+      "id": "d6_q3",
+      "type": "multiple_choice",
+      "difficulty": "warm-up",
+      "prompt": "If Area = length x width, and you know the area and one side, how do you find the missing side?",
+      "choices": {"A": "Multiply the area by the known side", "B": "Divide the area by the known side", "C": "Add the area and the known side", "D": "Subtract the known side from the area"},
+      "answer": "B",
+      "rationale": "Since Area = length x width, missing side = Area / known side."
+    },
+    {
+      "id": "d6_q4",
+      "type": "multiple_choice",
+      "difficulty": "grade-level",
+      "prompt": "An L-shaped floor is split into two rectangles. What should you do with the two rectangle areas to find the total area?",
+      "choices": {"A": "Multiply them together", "B": "Add them together", "C": "Subtract the smaller from the larger", "D": "Divide one by the other"},
+      "answer": "B",
+      "rationale": "When a figure is decomposed into non-overlapping pieces, their areas add up to the total area."
+    },
+    {
+      "id": "d6_q5",
+      "type": "numeric_entry",
+      "difficulty": "challenge",
+      "prompt": "An L-shaped room is split into two rectangles with areas 30 square units and 18 square units. What is the total area?",
+      "formula": "30+18",
+      "answer": 48,
+      "rationale": "30 + 18 = 48 square units."
+    }
+  ]
+}

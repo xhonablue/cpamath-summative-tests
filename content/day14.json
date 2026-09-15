@@ -1,0 +1,53 @@
+{
+  "day": 14,
+  "title": "Finding the Whole Given a Part and a Percent",
+  "topic": "whole = part / percent (as decimal)",
+  "standards": ["6.RP.3c"],
+  "items": [
+    {
+      "id": "d14_q1",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
+      "prompt": "20% of a number is 14. What is the number?",
+      "formula": "14/0.20",
+      "answer": 70,
+      "rationale": "14 / 0.20 = 70."
+    },
+    {
+      "id": "d14_q2",
+      "type": "numeric_entry",
+      "difficulty": "warm-up",
+      "prompt": "50% of a number is 32. What is the number?",
+      "formula": "32/0.50",
+      "answer": 64,
+      "rationale": "If 32 is half the number, the whole number is 32 x 2 = 64."
+    },
+    {
+      "id": "d14_q3",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
+      "prompt": "25% of a number is 9. What is the number?",
+      "formula": "9/0.25",
+      "answer": 36,
+      "rationale": "9 / 0.25 = 36."
+    },
+    {
+      "id": "d14_q4",
+      "type": "multiple_choice",
+      "difficulty": "grade-level",
+      "prompt": "If you know the percent and the part, how do you find the whole?",
+      "choices": {"A": "whole = part x percent (as a decimal)", "B": "whole = part / percent (as a decimal)", "C": "whole = percent / part", "D": "whole = part - percent"},
+      "answer": "B",
+      "rationale": "Since part = whole x percent, dividing both sides by the percent gives whole = part / percent."
+    },
+    {
+      "id": "d14_q5",
+      "type": "numeric_entry",
+      "difficulty": "challenge",
+      "prompt": "A student answered 18 questions correctly, which was 75% of the test. How many total questions were on the test?",
+      "formula": "18/0.75",
+      "answer": 24,
+      "rationale": "18 / 0.75 = 24 total questions."
+    }
+  ]
+}
