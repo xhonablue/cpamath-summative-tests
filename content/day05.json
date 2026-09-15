@@ -2,7 +2,10 @@
   "day": 5,
   "title": "Area Is Multiplication",
   "topic": "Area of rectangles as length x width; connection to 2-digit multiplication",
-  "standards": ["6.G.1", "6.NS.3"],
+  "standards": [
+    "6.G.1",
+    "6.NS.3"
+  ],
   "items": [
     {
       "id": "d5_q1",
@@ -18,7 +21,12 @@
       "type": "multiple_choice",
       "difficulty": "warm-up",
       "prompt": "The area of a rectangle is found by:",
-      "choices": {"A": "Adding the length and width", "B": "Multiplying the length and width", "C": "Dividing the length by the width", "D": "Squaring the length only"},
+      "choices": {
+        "A": "Adding the length and width",
+        "B": "Multiplying the length and width",
+        "C": "Dividing the length by the width",
+        "D": "Squaring the length only"
+      },
       "answer": "B",
       "rationale": "Area of a rectangle = length x width."
     },
@@ -36,7 +44,12 @@
       "type": "multiple_choice",
       "difficulty": "grade-level",
       "prompt": "A student says, \"The area of a 5-by-8 rectangle is 5 + 8 = 13.\" What mistake did the student make?",
-      "choices": {"A": "No mistake, that's correct", "B": "The student added the side lengths instead of multiplying them", "C": "The student used the wrong shape", "D": "The student forgot to label units"},
+      "choices": {
+        "A": "No mistake, that's correct",
+        "B": "The student added the side lengths instead of multiplying them",
+        "C": "The student used the wrong shape",
+        "D": "The student forgot to label units"
+      },
       "answer": "B",
       "rationale": "Area requires multiplying the side lengths, not adding them: 5 x 8 = 40."
     },
@@ -45,9 +58,20 @@
       "type": "multiple_choice",
       "difficulty": "challenge",
       "prompt": "Which unit is appropriate for describing the area of a rectangle whose sides are measured in feet?",
-      "choices": {"A": "Feet", "B": "Square feet", "C": "Cubic feet", "D": "Feet per second"},
+      "choices": {
+        "A": "Feet",
+        "B": "Square feet",
+        "C": "Cubic feet",
+        "D": "Feet per second"
+      },
       "answer": "B",
       "rationale": "Area is measured in square units, since it comes from multiplying two length measurements."
+    }
+  ],
+  "ixl_prep": [
+    {
+      "label": "Area of rectangles and squares",
+      "url": "https://www.ixl.com/math/grade-6/area-of-rectangles-and-squares"
     }
   ]
 }

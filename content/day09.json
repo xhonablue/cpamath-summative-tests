@@ -2,7 +2,9 @@
   "day": 9,
   "title": "Area of a Parallelogram — Refine, Practice & Quiz",
   "topic": "Cumulative review of area strategies from Days 5-8",
-  "standards": ["6.G.1"],
+  "standards": [
+    "6.G.1"
+  ],
   "items": [
     {
       "id": "d9_q1",
@@ -29,7 +31,12 @@
       "research_tag": "height_vs_slant_misconception",
       "retest_pair": "d8_q4",
       "prompt": "A parallelogram has a base of 11 units, a height of 4 units, and a slanted side of 7 units. What is its area?",
-      "choices": {"A": "44 square units", "B": "77 square units", "C": "15 square units", "D": "11 square units"},
+      "choices": {
+        "A": "44 square units",
+        "B": "77 square units",
+        "C": "15 square units",
+        "D": "11 square units"
+      },
       "answer": "A",
       "misconception_key": {
         "A": "correct — used base x height",
@@ -53,9 +60,20 @@
       "type": "multiple_choice",
       "difficulty": "grade-level",
       "prompt": "Which shape's area formula requires identifying the perpendicular height, not the slanted side length?",
-      "choices": {"A": "Rectangle", "B": "Square", "C": "Parallelogram", "D": "All of the above use only side lengths"},
+      "choices": {
+        "A": "Rectangle",
+        "B": "Square",
+        "C": "Parallelogram",
+        "D": "All of the above use only side lengths"
+      },
       "answer": "C",
       "rationale": "A parallelogram's slanted side is not the same as its height, so the height must be identified separately."
+    }
+  ],
+  "ixl_prep": [
+    {
+      "label": "Area of parallelograms",
+      "url": "https://www.ixl.com/math/grade-6/area-of-parallelograms"
     }
   ]
 }

@@ -2,23 +2,69 @@
   "day": 21,
   "title": "Writing and Evaluating Expressions",
   "topic": "Exponents; writing and evaluating algebraic expressions",
-  "standards": ["6.EE.1", "6.EE.2"],
+  "standards": [
+    "6.EE.1",
+    "6.EE.2"
+  ],
   "items": [
-    {"id": "d21_q1", "type": "numeric_entry", "difficulty": "warm-up",
+    {
+      "id": "d21_q1",
+      "type": "numeric_entry",
+      "difficulty": "warm-up",
       "prompt": "Evaluate: 3^4",
-      "formula": "3**4", "answer": 81, "rationale": "3 x 3 x 3 x 3 = 81."},
-    {"id": "d21_q2", "type": "numeric_entry", "difficulty": "grade-level",
+      "formula": "3**4",
+      "answer": 81,
+      "rationale": "3 x 3 x 3 x 3 = 81."
+    },
+    {
+      "id": "d21_q2",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
       "prompt": "Evaluate: 2^5",
-      "formula": "2**5", "answer": 32, "rationale": "2 x 2 x 2 x 2 x 2 = 32."},
-    {"id": "d21_q3", "type": "short_answer", "difficulty": "grade-level",
+      "formula": "2**5",
+      "answer": 32,
+      "rationale": "2 x 2 x 2 x 2 x 2 = 32."
+    },
+    {
+      "id": "d21_q3",
+      "type": "short_answer",
+      "difficulty": "grade-level",
       "prompt": "Write an algebraic expression for \"7 more than a number x.\"",
-      "answer": "x+7", "rationale": "\"7 more than x\" means x + 7."},
-    {"id": "d21_q4", "type": "numeric_entry", "difficulty": "grade-level",
+      "answer": "x+7",
+      "rationale": "\"7 more than x\" means x + 7."
+    },
+    {
+      "id": "d21_q4",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
       "prompt": "Evaluate the expression 5x + 3 when x = 4.",
-      "formula": "5*4+3", "answer": 23, "rationale": "5(4) + 3 = 20 + 3 = 23."},
-    {"id": "d21_q5", "type": "multiple_choice", "difficulty": "challenge",
+      "formula": "5*4+3",
+      "answer": 23,
+      "rationale": "5(4) + 3 = 20 + 3 = 23."
+    },
+    {
+      "id": "d21_q5",
+      "type": "multiple_choice",
+      "difficulty": "challenge",
       "prompt": "In the expression 4y - 9, what is the coefficient of y?",
-      "choices": {"A": "9", "B": "4", "C": "y", "D": "-9"}, "answer": "B",
-      "rationale": "The coefficient is the number multiplying the variable: 4."}
+      "choices": {
+        "A": "9",
+        "B": "4",
+        "C": "y",
+        "D": "-9"
+      },
+      "answer": "B",
+      "rationale": "The coefficient is the number multiplying the variable: 4."
+    }
+  ],
+  "ixl_prep": [
+    {
+      "label": "Evaluate powers with whole number bases",
+      "url": "https://www.ixl.com/math/grade-6/evaluate-powers-with-whole-number-bases"
+    },
+    {
+      "label": "Evaluate variable expressions with whole numbers",
+      "url": "https://www.ixl.com/math/grade-6/evaluate-variable-expressions-with-whole-numbers"
+    }
   ]
 }

@@ -2,7 +2,9 @@
   "day": 15,
   "title": "Percent — Refine & Quiz",
   "topic": "Cumulative review of percent of a quantity, discount/tax/tip, and finding the whole",
-  "standards": ["6.RP.3c"],
+  "standards": [
+    "6.RP.3c"
+  ],
   "items": [
     {
       "id": "d15_q1",
@@ -36,7 +38,12 @@
       "type": "multiple_choice",
       "difficulty": "grade-level",
       "prompt": "Which of these is NOT equal to 1/5?",
-      "choices": {"A": "20%", "B": "0.2", "C": "2/10", "D": "15%"},
+      "choices": {
+        "A": "20%",
+        "B": "0.2",
+        "C": "2/10",
+        "D": "15%"
+      },
       "answer": "D",
       "rationale": "1/5 = 0.2 = 20% = 2/10. 15% is not equivalent."
     },
@@ -48,6 +55,16 @@
       "formula": "25+(0.18*25)",
       "answer": 29.5,
       "rationale": "Tip = 0.18 x $25 = $4.50. Total = $25 + $4.50 = $29.50."
+    }
+  ],
+  "ixl_prep": [
+    {
+      "label": "Solve percent problems",
+      "url": "https://www.ixl.com/math/grade-6/solve-percent-problems"
+    },
+    {
+      "label": "Solve percent word problems",
+      "url": "https://www.ixl.com/math/grade-6/solve-percent-word-problems"
     }
   ]
 }

@@ -2,14 +2,21 @@
   "day": 11,
   "title": "Understanding Percent",
   "topic": "Percent as a rate per 100; percent-decimal-fraction equivalence",
-  "standards": ["6.RP.3c"],
+  "standards": [
+    "6.RP.3c"
+  ],
   "items": [
     {
       "id": "d11_q1",
       "type": "multiple_choice",
       "difficulty": "warm-up",
       "prompt": "45% means:",
-      "choices": {"A": "45 out of 10", "B": "45 out of 100", "C": "45 out of 1", "D": "45 out of 1000"},
+      "choices": {
+        "A": "45 out of 10",
+        "B": "45 out of 100",
+        "C": "45 out of 1",
+        "D": "45 out of 1000"
+      },
       "answer": "B",
       "rationale": "\"Percent\" means \"per hundred,\" so 45% = 45/100."
     },
@@ -45,9 +52,20 @@
       "type": "multiple_choice",
       "difficulty": "challenge",
       "prompt": "Which of these is equivalent to 3/4?",
-      "choices": {"A": "34%", "B": "75%", "C": "43%", "D": "7.4%"},
+      "choices": {
+        "A": "34%",
+        "B": "75%",
+        "C": "43%",
+        "D": "7.4%"
+      },
       "answer": "B",
       "rationale": "3/4 = 0.75 = 75%."
+    }
+  ],
+  "ixl_prep": [
+    {
+      "label": "Convert between percents, fractions, and decimals",
+      "url": "https://www.ixl.com/math/grade-6/convert-between-percents-fractions-and-decimals"
     }
   ]
 }

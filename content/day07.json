@@ -2,14 +2,21 @@
   "day": 7,
   "title": "Area of Compound Rectangles",
   "topic": "Decompose-and-add vs. enclose-and-subtract strategies",
-  "standards": ["6.G.1"],
+  "standards": [
+    "6.G.1"
+  ],
   "items": [
     {
       "id": "d7_q1",
       "type": "multiple_choice",
       "difficulty": "grade-level",
       "prompt": "One way to find the area of an L-shaped figure is to:",
-      "choices": {"A": "Enclose it in one large rectangle, then subtract the missing piece", "B": "Multiply all the side lengths together at once", "C": "Only measure the longest side", "D": "Ignore the missing piece"},
+      "choices": {
+        "A": "Enclose it in one large rectangle, then subtract the missing piece",
+        "B": "Multiply all the side lengths together at once",
+        "C": "Only measure the longest side",
+        "D": "Ignore the missing piece"
+      },
       "answer": "A",
       "rationale": "The enclose-and-subtract method surrounds the shape with a rectangle and removes the extra area."
     },
@@ -36,7 +43,12 @@
       "type": "multiple_choice",
       "difficulty": "challenge",
       "prompt": "For a trickier T-shaped figure, which strategy works?",
-      "choices": {"A": "Only the enclose-and-subtract method works", "B": "Only the decompose-and-add method works", "C": "Either enclose-and-subtract or decompose-and-add can work, depending on the shape", "D": "Neither method works for T-shapes"},
+      "choices": {
+        "A": "Only the enclose-and-subtract method works",
+        "B": "Only the decompose-and-add method works",
+        "C": "Either enclose-and-subtract or decompose-and-add can work, depending on the shape",
+        "D": "Neither method works for T-shapes"
+      },
       "answer": "C",
       "rationale": "Both strategies are valid tools; which one is easiest depends on how the figure is shaped."
     },
@@ -48,6 +60,12 @@
       "formula": "(8*3)+(2*6)",
       "answer": 36,
       "rationale": "(8 x 3) + (2 x 6) = 24 + 12 = 36 square units."
+    }
+  ],
+  "ixl_prep": [
+    {
+      "label": "Area of compound figures",
+      "url": "https://www.ixl.com/math/grade-6/area-of-compound-figures"
     }
   ]
 }

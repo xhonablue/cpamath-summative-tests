@@ -2,24 +2,70 @@
   "day": 18,
   "title": "Unit Rates",
   "topic": "Unit rate as a comparison to 1 unit; better-buy comparisons",
-  "standards": ["6.RP.2"],
+  "standards": [
+    "6.RP.2"
+  ],
   "items": [
-    {"id": "d18_q1", "type": "numeric_entry", "difficulty": "grade-level",
+    {
+      "id": "d18_q1",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
       "prompt": "A car travels 240 miles in 4 hours. What is the unit rate in miles per hour?",
-      "formula": "240/4", "answer": 60, "rationale": "240 / 4 = 60 miles per hour."},
-    {"id": "d18_q2", "type": "numeric_entry", "difficulty": "grade-level",
+      "formula": "240/4",
+      "answer": 60,
+      "rationale": "240 / 4 = 60 miles per hour."
+    },
+    {
+      "id": "d18_q2",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
       "prompt": "A bag of 8 apples costs $4. What is the unit price per apple, in dollars?",
-      "formula": "4/8", "answer": 0.5, "rationale": "$4 / 8 apples = $0.50 per apple."},
-    {"id": "d18_q3", "type": "multiple_choice", "difficulty": "warm-up",
+      "formula": "4/8",
+      "answer": 0.5,
+      "rationale": "$4 / 8 apples = $0.50 per apple."
+    },
+    {
+      "id": "d18_q3",
+      "type": "multiple_choice",
+      "difficulty": "warm-up",
       "prompt": "A unit rate compares a quantity to:",
-      "choices": {"A": "Another quantity of the same kind", "B": "Exactly 1 unit of another quantity", "C": "The total of both quantities", "D": "A percent"},
-      "answer": "B", "rationale": "A unit rate expresses a comparison per 1 unit (e.g., miles per 1 hour)."},
-    {"id": "d18_q4", "type": "numeric_entry", "difficulty": "grade-level",
+      "choices": {
+        "A": "Another quantity of the same kind",
+        "B": "Exactly 1 unit of another quantity",
+        "C": "The total of both quantities",
+        "D": "A percent"
+      },
+      "answer": "B",
+      "rationale": "A unit rate expresses a comparison per 1 unit (e.g., miles per 1 hour)."
+    },
+    {
+      "id": "d18_q4",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
       "prompt": "A runner covers 15 miles in 3 hours at a constant pace. How many miles does she cover in 1 hour?",
-      "formula": "15/3", "answer": 5, "rationale": "15 / 3 = 5 miles per hour."},
-    {"id": "d18_q5", "type": "multiple_choice", "difficulty": "challenge",
+      "formula": "15/3",
+      "answer": 5,
+      "rationale": "15 / 3 = 5 miles per hour."
+    },
+    {
+      "id": "d18_q5",
+      "type": "multiple_choice",
+      "difficulty": "challenge",
       "prompt": "Which is the better buy: 3 notebooks for $6, or 5 notebooks for $12?",
-      "choices": {"A": "3 notebooks for $6", "B": "5 notebooks for $12", "C": "They cost the same per notebook", "D": "Cannot be determined"},
-      "answer": "A", "rationale": "$6/3 = $2.00 per notebook vs. $12/5 = $2.40 per notebook, so 3 for $6 is the better unit price."}
+      "choices": {
+        "A": "3 notebooks for $6",
+        "B": "5 notebooks for $12",
+        "C": "They cost the same per notebook",
+        "D": "Cannot be determined"
+      },
+      "answer": "A",
+      "rationale": "$6/3 = $2.00 per notebook vs. $12/5 = $2.40 per notebook, so 3 for $6 is the better unit price."
+    }
+  ],
+  "ixl_prep": [
+    {
+      "label": "Unit rates",
+      "url": "https://www.ixl.com/math/grade-6/unit-rates"
+    }
   ]
 }

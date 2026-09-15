@@ -2,7 +2,10 @@
   "day": 6,
   "title": "Area Unlocks the Missing Side",
   "topic": "Finding a missing side from area; combining rectangle areas",
-  "standards": ["6.G.1", "6.EE.7"],
+  "standards": [
+    "6.G.1",
+    "6.EE.7"
+  ],
   "items": [
     {
       "id": "d6_q1",
@@ -27,7 +30,12 @@
       "type": "multiple_choice",
       "difficulty": "warm-up",
       "prompt": "If Area = length x width, and you know the area and one side, how do you find the missing side?",
-      "choices": {"A": "Multiply the area by the known side", "B": "Divide the area by the known side", "C": "Add the area and the known side", "D": "Subtract the known side from the area"},
+      "choices": {
+        "A": "Multiply the area by the known side",
+        "B": "Divide the area by the known side",
+        "C": "Add the area and the known side",
+        "D": "Subtract the known side from the area"
+      },
       "answer": "B",
       "rationale": "Since Area = length x width, missing side = Area / known side."
     },
@@ -36,7 +44,12 @@
       "type": "multiple_choice",
       "difficulty": "grade-level",
       "prompt": "An L-shaped floor is split into two rectangles. What should you do with the two rectangle areas to find the total area?",
-      "choices": {"A": "Multiply them together", "B": "Add them together", "C": "Subtract the smaller from the larger", "D": "Divide one by the other"},
+      "choices": {
+        "A": "Multiply them together",
+        "B": "Add them together",
+        "C": "Subtract the smaller from the larger",
+        "D": "Divide one by the other"
+      },
       "answer": "B",
       "rationale": "When a figure is decomposed into non-overlapping pieces, their areas add up to the total area."
     },
@@ -48,6 +61,12 @@
       "formula": "30+18",
       "answer": 48,
       "rationale": "30 + 18 = 48 square units."
+    }
+  ],
+  "ixl_prep": [
+    {
+      "label": "Area of rectangles and squares",
+      "url": "https://www.ixl.com/math/grade-6/area-of-rectangles-and-squares"
     }
   ]
 }

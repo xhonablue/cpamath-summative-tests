@@ -2,23 +2,70 @@
   "day": 29,
   "title": "Distance on the Coordinate Plane",
   "topic": "Finding horizontal/vertical distance between points; area and perimeter on the coordinate plane",
-  "standards": ["6.NS.8", "6.G.3"],
+  "standards": [
+    "6.NS.8",
+    "6.G.3"
+  ],
   "items": [
-    {"id": "d29_q1", "type": "numeric_entry", "difficulty": "grade-level",
+    {
+      "id": "d29_q1",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
       "prompt": "Point A is at (-4, 5) and Point B is at (2, 5). Since they share the same y-coordinate, what is the horizontal distance between them?",
-      "formula": "abs(2-(-4))", "answer": 6, "rationale": "Distance = |2 - (-4)| = 6."},
-    {"id": "d29_q2", "type": "numeric_entry", "difficulty": "grade-level",
+      "formula": "abs(2-(-4))",
+      "answer": 6,
+      "rationale": "Distance = |2 - (-4)| = 6."
+    },
+    {
+      "id": "d29_q2",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
       "prompt": "Point C is at (3, 7) and Point D is at (3, -2). What is the vertical distance between them?",
-      "formula": "abs(7-(-2))", "answer": 9, "rationale": "Distance = |7 - (-2)| = 9."},
-    {"id": "d29_q3", "type": "multiple_choice", "difficulty": "warm-up",
+      "formula": "abs(7-(-2))",
+      "answer": 9,
+      "rationale": "Distance = |7 - (-2)| = 9."
+    },
+    {
+      "id": "d29_q3",
+      "type": "multiple_choice",
+      "difficulty": "warm-up",
       "prompt": "To find the distance between two points that share the same y-coordinate, you should:",
-      "choices": {"A": "Add the x-coordinates", "B": "Find the absolute value of the difference of the x-coordinates", "C": "Find the absolute value of the difference of the y-coordinates", "D": "Multiply the x-coordinates"},
-      "answer": "B", "rationale": "When y-values match, horizontal distance = |x2 - x1|."},
-    {"id": "d29_q4", "type": "numeric_entry", "difficulty": "grade-level",
+      "choices": {
+        "A": "Add the x-coordinates",
+        "B": "Find the absolute value of the difference of the x-coordinates",
+        "C": "Find the absolute value of the difference of the y-coordinates",
+        "D": "Multiply the x-coordinates"
+      },
+      "answer": "B",
+      "rationale": "When y-values match, horizontal distance = |x2 - x1|."
+    },
+    {
+      "id": "d29_q4",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
       "prompt": "A rectangle on the coordinate plane has corners at (0,0), (6,0), (6,4), and (0,4). What is its area?",
-      "formula": "6*4", "answer": 24, "rationale": "Length x width = 6 x 4 = 24."},
-    {"id": "d29_q5", "type": "numeric_entry", "difficulty": "challenge",
+      "formula": "6*4",
+      "answer": 24,
+      "rationale": "Length x width = 6 x 4 = 24."
+    },
+    {
+      "id": "d29_q5",
+      "type": "numeric_entry",
+      "difficulty": "challenge",
       "prompt": "Using the same rectangle with corners (0,0), (6,0), (6,4), (0,4), what is its perimeter?",
-      "formula": "2*(6+4)", "answer": 20, "rationale": "Perimeter = 2(length + width) = 2(6 + 4) = 20."}
+      "formula": "2*(6+4)",
+      "answer": 20,
+      "rationale": "Perimeter = 2(length + width) = 2(6 + 4) = 20."
+    }
+  ],
+  "ixl_prep": [
+    {
+      "label": "Distance between two points",
+      "url": "https://www.ixl.com/math/grade-6/distance-between-two-points"
+    },
+    {
+      "label": "Area and perimeter of squares and rectangles on the coordinate plane",
+      "url": "https://www.ixl.com/math/grade-6/area-and-perimeter-of-squares-and-rectangles-on-the-coordinate-plane"
+    }
   ]
 }

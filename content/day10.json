@@ -2,7 +2,10 @@
   "day": 10,
   "title": "Skill Breakout — Multiplying Decimals & Fractions",
   "topic": "Multiplying decimals and fractions as the same function in different notation (bridge to Percent)",
-  "standards": ["6.NS.3", "6.NS.1"],
+  "standards": [
+    "6.NS.3",
+    "6.NS.1"
+  ],
   "items": [
     {
       "id": "d10_q1",
@@ -27,7 +30,12 @@
       "type": "multiple_choice",
       "difficulty": "challenge",
       "prompt": "Multiplying decimals and multiplying fractions both represent the same underlying operation because:",
-      "choices": {"A": "They always give the same numeric answer no matter the numbers used", "B": "Both represent multiplying parts of a whole, just written in different notation", "C": "Fractions cannot actually be multiplied the way decimals can", "D": "Decimals are not true numbers"},
+      "choices": {
+        "A": "They always give the same numeric answer no matter the numbers used",
+        "B": "Both represent multiplying parts of a whole, just written in different notation",
+        "C": "Fractions cannot actually be multiplied the way decimals can",
+        "D": "Decimals are not true numbers"
+      },
       "answer": "B",
       "rationale": "0.4 and 2/5 (for example) represent the same value; multiplying either notation represents combining parts of a whole."
     },
@@ -48,6 +56,16 @@
       "formula": "Fraction(1,2)*Fraction(1,3)",
       "answer": "1/6",
       "rationale": "Multiply numerators and multiply denominators: (1x1)/(2x3) = 1/6."
+    }
+  ],
+  "ixl_prep": [
+    {
+      "label": "Multiply decimals",
+      "url": "https://www.ixl.com/math/grade-6/multiply-decimals"
+    },
+    {
+      "label": "Multiply two fractions",
+      "url": "https://www.ixl.com/math/grade-6/multiply-two-fractions"
     }
   ]
 }

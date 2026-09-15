@@ -2,26 +2,84 @@
   "day": 26,
   "title": "Positive and Negative Numbers",
   "topic": "Representing quantities with positive and negative numbers; the number line",
-  "standards": ["6.NS.5", "6.NS.6a"],
+  "standards": [
+    "6.NS.5",
+    "6.NS.6a"
+  ],
   "items": [
-    {"id": "d26_q1", "type": "multiple_choice", "difficulty": "warm-up",
+    {
+      "id": "d26_q1",
+      "type": "multiple_choice",
+      "difficulty": "warm-up",
       "prompt": "A temperature of 10 degrees below zero is best represented as:",
-      "choices": {"A": "10", "B": "-10", "C": "0", "D": "1/10"}, "answer": "B",
-      "rationale": "\"Below zero\" is represented with a negative number."},
-    {"id": "d26_q2", "type": "multiple_choice", "difficulty": "grade-level",
+      "choices": {
+        "A": "10",
+        "B": "-10",
+        "C": "0",
+        "D": "1/10"
+      },
+      "answer": "B",
+      "rationale": "\"Below zero\" is represented with a negative number."
+    },
+    {
+      "id": "d26_q2",
+      "type": "multiple_choice",
+      "difficulty": "grade-level",
       "prompt": "On a number line, -7 is located:",
-      "choices": {"A": "To the right of 0", "B": "To the left of 0", "C": "At 0", "D": "Cannot be placed on a number line"},
-      "answer": "B", "rationale": "Negative numbers are located to the left of 0."},
-    {"id": "d26_q3", "type": "multiple_choice", "difficulty": "grade-level",
+      "choices": {
+        "A": "To the right of 0",
+        "B": "To the left of 0",
+        "C": "At 0",
+        "D": "Cannot be placed on a number line"
+      },
+      "answer": "B",
+      "rationale": "Negative numbers are located to the left of 0."
+    },
+    {
+      "id": "d26_q3",
+      "type": "multiple_choice",
+      "difficulty": "grade-level",
       "prompt": "A debt of $50 can be represented as:",
-      "choices": {"A": "50", "B": "-50", "C": "0", "D": "1/50"}, "answer": "B",
-      "rationale": "Owing money is represented with a negative number relative to zero balance."},
-    {"id": "d26_q4", "type": "short_answer", "difficulty": "grade-level",
+      "choices": {
+        "A": "50",
+        "B": "-50",
+        "C": "0",
+        "D": "1/50"
+      },
+      "answer": "B",
+      "rationale": "Owing money is represented with a negative number relative to zero balance."
+    },
+    {
+      "id": "d26_q4",
+      "type": "short_answer",
+      "difficulty": "grade-level",
       "prompt": "Which is greater: -3 or -8? Write the greater number.",
-      "answer": "-3", "rationale": "-3 is closer to zero (further right on the number line), so -3 > -8."},
-    {"id": "d26_q5", "type": "multiple_choice", "difficulty": "challenge",
+      "answer": "-3",
+      "rationale": "-3 is closer to zero (further right on the number line), so -3 > -8."
+    },
+    {
+      "id": "d26_q5",
+      "type": "multiple_choice",
+      "difficulty": "challenge",
       "prompt": "The opposite of -12 is:",
-      "choices": {"A": "12", "B": "-12", "C": "0", "D": "1/12"}, "answer": "A",
-      "rationale": "A number and its opposite are the same distance from 0 but on opposite sides."}
+      "choices": {
+        "A": "12",
+        "B": "-12",
+        "C": "0",
+        "D": "1/12"
+      },
+      "answer": "A",
+      "rationale": "A number and its opposite are the same distance from 0 but on opposite sides."
+    }
+  ],
+  "ixl_prep": [
+    {
+      "label": "Understanding integers",
+      "url": "https://www.ixl.com/math/grade-6/understanding-integers"
+    },
+    {
+      "label": "Rational numbers on number lines",
+      "url": "https://www.ixl.com/math/grade-6/rational-numbers-on-number-lines"
+    }
   ]
 }

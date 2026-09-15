@@ -2,14 +2,21 @@
   "day": 8,
   "title": "Area of a Parallelogram",
   "topic": "Deriving Area = base x height by rearranging a parallelogram into a rectangle",
-  "standards": ["6.G.1"],
+  "standards": [
+    "6.G.1"
+  ],
   "items": [
     {
       "id": "d8_q1",
       "type": "multiple_choice",
       "difficulty": "grade-level",
       "prompt": "When a parallelogram is cut and rearranged into a rectangle, which two measurements stay the same?",
-      "choices": {"A": "Base and height", "B": "Only the base", "C": "Only the height", "D": "Neither stays the same"},
+      "choices": {
+        "A": "Base and height",
+        "B": "Only the base",
+        "C": "Only the height",
+        "D": "Neither stays the same"
+      },
       "answer": "A",
       "rationale": "Sliding the cut triangle to the other side preserves both the base length and the height."
     },
@@ -27,7 +34,12 @@
       "type": "multiple_choice",
       "difficulty": "warm-up",
       "prompt": "The formula for the area of a parallelogram is:",
-      "choices": {"A": "base + height", "B": "base x height", "C": "2 x base", "D": "(base x height) / 2"},
+      "choices": {
+        "A": "base + height",
+        "B": "base x height",
+        "C": "2 x base",
+        "D": "(base x height) / 2"
+      },
       "answer": "B",
       "rationale": "Area of a parallelogram = base x height."
     },
@@ -38,7 +50,12 @@
       "research_tag": "height_vs_slant_misconception",
       "retest_pair": "d9_q3",
       "prompt": "A parallelogram has a base of 8 units, a height of 5 units, and a slanted side of 9 units. What is its area?",
-      "choices": {"A": "40 square units", "B": "72 square units", "C": "13 square units", "D": "8 square units"},
+      "choices": {
+        "A": "40 square units",
+        "B": "72 square units",
+        "C": "13 square units",
+        "D": "8 square units"
+      },
       "answer": "A",
       "misconception_key": {
         "A": "correct — used base x height",
@@ -56,6 +73,16 @@
       "formula": "15*4",
       "answer": 60,
       "rationale": "15 x 4 = 60 square units."
+    }
+  ],
+  "ixl_prep": [
+    {
+      "label": "Understanding area of a parallelogram",
+      "url": "https://www.ixl.com/math/grade-6/understanding-area-of-a-parallelogram"
+    },
+    {
+      "label": "Area of parallelograms",
+      "url": "https://www.ixl.com/math/grade-6/area-of-parallelograms"
     }
   ]
 }

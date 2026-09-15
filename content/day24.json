@@ -2,26 +2,79 @@
   "day": 24,
   "title": "One-Step Inequalities",
   "topic": "Writing, solving, and graphing simple inequalities",
-  "standards": ["6.EE.8"],
+  "standards": [
+    "6.EE.8"
+  ],
   "items": [
-    {"id": "d24_q1", "type": "multiple_choice", "difficulty": "warm-up",
+    {
+      "id": "d24_q1",
+      "type": "multiple_choice",
+      "difficulty": "warm-up",
       "prompt": "Which value of x makes the inequality x > 5 true?",
-      "choices": {"A": "5", "B": "3", "C": "6", "D": "0"}, "answer": "C",
-      "rationale": "6 is the only listed value greater than 5."},
-    {"id": "d24_q2", "type": "short_answer", "difficulty": "grade-level",
+      "choices": {
+        "A": "5",
+        "B": "3",
+        "C": "6",
+        "D": "0"
+      },
+      "answer": "C",
+      "rationale": "6 is the only listed value greater than 5."
+    },
+    {
+      "id": "d24_q2",
+      "type": "short_answer",
+      "difficulty": "grade-level",
       "prompt": "Write an inequality for \"a number x is at most 10.\"",
-      "answer": "x<=10", "rationale": "\"At most\" means less than or equal to: x <= 10."},
-    {"id": "d24_q3", "type": "multiple_choice", "difficulty": "grade-level",
+      "answer": "x<=10",
+      "rationale": "\"At most\" means less than or equal to: x <= 10."
+    },
+    {
+      "id": "d24_q3",
+      "type": "multiple_choice",
+      "difficulty": "grade-level",
       "prompt": "What is the solution to x - 3 < 7?",
-      "choices": {"A": "x < 10", "B": "x < 4", "C": "x > 10", "D": "x > 4"}, "answer": "A",
-      "rationale": "Add 3 to both sides: x < 10."},
-    {"id": "d24_q4", "type": "multiple_choice", "difficulty": "grade-level",
+      "choices": {
+        "A": "x < 10",
+        "B": "x < 4",
+        "C": "x > 10",
+        "D": "x > 4"
+      },
+      "answer": "A",
+      "rationale": "Add 3 to both sides: x < 10."
+    },
+    {
+      "id": "d24_q4",
+      "type": "multiple_choice",
+      "difficulty": "grade-level",
       "prompt": "On a number line, an open circle at a point represents:",
-      "choices": {"A": "The point is included in the solution", "B": "The point is not included in the solution", "C": "The value is negative", "D": "The value is an integer"},
-      "answer": "B", "rationale": "Open circles show strict inequalities (< or >), where the boundary point itself is excluded."},
-    {"id": "d24_q5", "type": "multiple_choice", "difficulty": "challenge",
+      "choices": {
+        "A": "The point is included in the solution",
+        "B": "The point is not included in the solution",
+        "C": "The value is negative",
+        "D": "The value is an integer"
+      },
+      "answer": "B",
+      "rationale": "Open circles show strict inequalities (< or >), where the boundary point itself is excluded."
+    },
+    {
+      "id": "d24_q5",
+      "type": "multiple_choice",
+      "difficulty": "challenge",
       "prompt": "Which situation could be modeled by the inequality x >= 12?",
-      "choices": {"A": "You must be at least 12 years old to ride", "B": "You must be exactly 12 years old to ride", "C": "You must be younger than 12 to ride", "D": "You must have at most 12 items"},
-      "answer": "A", "rationale": "\"At least 12\" means x >= 12."}
+      "choices": {
+        "A": "You must be at least 12 years old to ride",
+        "B": "You must be exactly 12 years old to ride",
+        "C": "You must be younger than 12 to ride",
+        "D": "You must have at most 12 items"
+      },
+      "answer": "A",
+      "rationale": "\"At least 12\" means x >= 12."
+    }
+  ],
+  "ixl_prep": [
+    {
+      "label": "Solve one-step inequalities",
+      "url": "https://www.ixl.com/math/grade-6/solve-one-step-inequalities"
+    }
   ]
 }

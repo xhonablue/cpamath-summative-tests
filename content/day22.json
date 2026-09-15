@@ -2,24 +2,72 @@
   "day": 22,
   "title": "Distributive Property & Combining Like Terms",
   "topic": "Expanding expressions and simplifying by combining like terms",
-  "standards": ["6.EE.3", "6.EE.4"],
+  "standards": [
+    "6.EE.3",
+    "6.EE.4"
+  ],
   "items": [
-    {"id": "d22_q1", "type": "short_answer", "difficulty": "grade-level",
+    {
+      "id": "d22_q1",
+      "type": "short_answer",
+      "difficulty": "grade-level",
       "prompt": "Use the distributive property to expand 3(x + 5).",
-      "answer": "3x+15", "rationale": "3(x) + 3(5) = 3x + 15."},
-    {"id": "d22_q2", "type": "short_answer", "difficulty": "warm-up",
+      "answer": "3x+15",
+      "rationale": "3(x) + 3(5) = 3x + 15."
+    },
+    {
+      "id": "d22_q2",
+      "type": "short_answer",
+      "difficulty": "warm-up",
       "prompt": "Combine like terms: 4x + 7x",
-      "answer": "11x", "rationale": "4x + 7x = 11x."},
-    {"id": "d22_q3", "type": "short_answer", "difficulty": "grade-level",
+      "answer": "11x",
+      "rationale": "4x + 7x = 11x."
+    },
+    {
+      "id": "d22_q3",
+      "type": "short_answer",
+      "difficulty": "grade-level",
       "prompt": "Combine like terms: 8y + 3 - 2y + 5",
-      "answer": "6y+8", "rationale": "(8y - 2y) + (3 + 5) = 6y + 8."},
-    {"id": "d22_q4", "type": "multiple_choice", "difficulty": "grade-level",
+      "answer": "6y+8",
+      "rationale": "(8y - 2y) + (3 + 5) = 6y + 8."
+    },
+    {
+      "id": "d22_q4",
+      "type": "multiple_choice",
+      "difficulty": "grade-level",
       "prompt": "Which expression is equivalent to 2(x + 6)?",
-      "choices": {"A": "2x + 6", "B": "2x + 12", "C": "x + 12", "D": "2x + 8"}, "answer": "B",
-      "rationale": "2(x) + 2(6) = 2x + 12."},
-    {"id": "d22_q5", "type": "multiple_choice", "difficulty": "challenge",
+      "choices": {
+        "A": "2x + 6",
+        "B": "2x + 12",
+        "C": "x + 12",
+        "D": "2x + 8"
+      },
+      "answer": "B",
+      "rationale": "2(x) + 2(6) = 2x + 12."
+    },
+    {
+      "id": "d22_q5",
+      "type": "multiple_choice",
+      "difficulty": "challenge",
       "prompt": "5a and 5a^2 are:",
-      "choices": {"A": "Like terms, because they share the same coefficient", "B": "Not like terms, because the variable parts (a and a^2) are different", "C": "Always equal to the same value", "D": "Like terms because they both use the letter a"},
-      "answer": "B", "rationale": "Like terms must have identical variable parts, including the exponent; a and a^2 are different."}
+      "choices": {
+        "A": "Like terms, because they share the same coefficient",
+        "B": "Not like terms, because the variable parts (a and a^2) are different",
+        "C": "Always equal to the same value",
+        "D": "Like terms because they both use the letter a"
+      },
+      "answer": "B",
+      "rationale": "Like terms must have identical variable parts, including the exponent; a and a^2 are different."
+    }
+  ],
+  "ixl_prep": [
+    {
+      "label": "Multiply using the distributive property",
+      "url": "https://www.ixl.com/math/grade-6/multiply-using-the-distributive-property"
+    },
+    {
+      "label": "Add and subtract like terms",
+      "url": "https://www.ixl.com/math/grade-6/add-and-subtract-like-terms"
+    }
   ]
 }

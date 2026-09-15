@@ -2,24 +2,76 @@
   "day": 25,
   "title": "Expressions & Equations — Refine & Quiz",
   "topic": "Independent/dependent variables and representing relationships; cumulative review",
-  "standards": ["6.EE.9", "6.EE.5", "6.EE.7"],
+  "standards": [
+    "6.EE.9",
+    "6.EE.5",
+    "6.EE.7"
+  ],
   "items": [
-    {"id": "d25_q1", "type": "multiple_choice", "difficulty": "grade-level",
+    {
+      "id": "d25_q1",
+      "type": "multiple_choice",
+      "difficulty": "grade-level",
       "prompt": "In y = 3x, if x represents hours worked and y represents dollars earned, x is the:",
-      "choices": {"A": "Dependent variable", "B": "Independent variable", "C": "Constant", "D": "Coefficient"}, "answer": "B",
-      "rationale": "Hours worked (x) is chosen/controlled; dollars earned (y) depends on it."},
-    {"id": "d25_q2", "type": "numeric_entry", "difficulty": "warm-up",
+      "choices": {
+        "A": "Dependent variable",
+        "B": "Independent variable",
+        "C": "Constant",
+        "D": "Coefficient"
+      },
+      "answer": "B",
+      "rationale": "Hours worked (x) is chosen/controlled; dollars earned (y) depends on it."
+    },
+    {
+      "id": "d25_q2",
+      "type": "numeric_entry",
+      "difficulty": "warm-up",
       "prompt": "Using y = 3x, find y when x = 7.",
-      "formula": "3*7", "answer": 21, "rationale": "3 x 7 = 21."},
-    {"id": "d25_q3", "type": "numeric_entry", "difficulty": "grade-level",
+      "formula": "3*7",
+      "answer": 21,
+      "rationale": "3 x 7 = 21."
+    },
+    {
+      "id": "d25_q3",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
       "prompt": "Using y = 3x, find x when y = 24.",
-      "formula": "24/3", "answer": 8, "rationale": "24 / 3 = 8."},
-    {"id": "d25_q4", "type": "multiple_choice", "difficulty": "grade-level",
+      "formula": "24/3",
+      "answer": 8,
+      "rationale": "24 / 3 = 8."
+    },
+    {
+      "id": "d25_q4",
+      "type": "multiple_choice",
+      "difficulty": "grade-level",
       "prompt": "A dependent variable is one whose value:",
-      "choices": {"A": "Is chosen freely", "B": "Depends on the value of another variable", "C": "Never changes", "D": "Is always negative"},
-      "answer": "B", "rationale": "The dependent variable's value is determined by the independent variable."},
-    {"id": "d25_q5", "type": "numeric_entry", "difficulty": "challenge",
+      "choices": {
+        "A": "Is chosen freely",
+        "B": "Depends on the value of another variable",
+        "C": "Never changes",
+        "D": "Is always negative"
+      },
+      "answer": "B",
+      "rationale": "The dependent variable's value is determined by the independent variable."
+    },
+    {
+      "id": "d25_q5",
+      "type": "numeric_entry",
+      "difficulty": "challenge",
       "prompt": "Solve for x: 4x - 5 = 19",
-      "formula": "(19+5)/4", "answer": 6, "rationale": "4x = 24, so x = 24/4 = 6."}
+      "formula": "(19+5)/4",
+      "answer": 6,
+      "rationale": "4x = 24, so x = 24/4 = 6."
+    }
+  ],
+  "ixl_prep": [
+    {
+      "label": "Identify independent and dependent variables in tables and graphs",
+      "url": "https://www.ixl.com/math/grade-6/identify-independent-and-dependent-variables-in-tables-and-graphs"
+    },
+    {
+      "label": "Solve one-step equations: word problems",
+      "url": "https://www.ixl.com/math/grade-6/solve-one-step-equations-word-problems"
+    }
   ]
 }

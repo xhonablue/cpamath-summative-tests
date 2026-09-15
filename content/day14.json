@@ -2,7 +2,9 @@
   "day": 14,
   "title": "Finding the Whole Given a Part and a Percent",
   "topic": "whole = part / percent (as decimal)",
-  "standards": ["6.RP.3c"],
+  "standards": [
+    "6.RP.3c"
+  ],
   "items": [
     {
       "id": "d14_q1",
@@ -36,7 +38,12 @@
       "type": "multiple_choice",
       "difficulty": "grade-level",
       "prompt": "If you know the percent and the part, how do you find the whole?",
-      "choices": {"A": "whole = part x percent (as a decimal)", "B": "whole = part / percent (as a decimal)", "C": "whole = percent / part", "D": "whole = part - percent"},
+      "choices": {
+        "A": "whole = part x percent (as a decimal)",
+        "B": "whole = part / percent (as a decimal)",
+        "C": "whole = percent / part",
+        "D": "whole = part - percent"
+      },
       "answer": "B",
       "rationale": "Since part = whole x percent, dividing both sides by the percent gives whole = part / percent."
     },
@@ -48,6 +55,12 @@
       "formula": "18/0.75",
       "answer": 24,
       "rationale": "18 / 0.75 = 24 total questions."
+    }
+  ],
+  "ixl_prep": [
+    {
+      "label": "Find the total given a part and a percent",
+      "url": "https://www.ixl.com/math/grade-6/find-the-total-given-a-part-and-a-percent"
     }
   ]
 }

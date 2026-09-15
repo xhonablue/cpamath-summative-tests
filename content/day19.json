@@ -2,23 +2,65 @@
   "day": 19,
   "title": "Ratio Reasoning to Convert Measurement Units",
   "topic": "Using ratios/unit rates to convert within a measurement system",
-  "standards": ["6.RP.3d"],
+  "standards": [
+    "6.RP.3d"
+  ],
   "items": [
-    {"id": "d19_q1", "type": "numeric_entry", "difficulty": "warm-up",
+    {
+      "id": "d19_q1",
+      "type": "numeric_entry",
+      "difficulty": "warm-up",
       "prompt": "There are 12 inches in 1 foot. How many inches are in 5 feet?",
-      "formula": "12*5", "answer": 60, "rationale": "12 x 5 = 60 inches."},
-    {"id": "d19_q2", "type": "numeric_entry", "difficulty": "grade-level",
+      "formula": "12*5",
+      "answer": 60,
+      "rationale": "12 x 5 = 60 inches."
+    },
+    {
+      "id": "d19_q2",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
       "prompt": "There are 3 feet in 1 yard. How many feet are in 7 yards?",
-      "formula": "3*7", "answer": 21, "rationale": "3 x 7 = 21 feet."},
-    {"id": "d19_q3", "type": "numeric_entry", "difficulty": "grade-level",
+      "formula": "3*7",
+      "answer": 21,
+      "rationale": "3 x 7 = 21 feet."
+    },
+    {
+      "id": "d19_q3",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
       "prompt": "There are 60 minutes in 1 hour. How many minutes are in 2.5 hours?",
-      "formula": "60*2.5", "answer": 150, "rationale": "60 x 2.5 = 150 minutes."},
-    {"id": "d19_q4", "type": "multiple_choice", "difficulty": "warm-up",
+      "formula": "60*2.5",
+      "answer": 150,
+      "rationale": "60 x 2.5 = 150 minutes."
+    },
+    {
+      "id": "d19_q4",
+      "type": "multiple_choice",
+      "difficulty": "warm-up",
       "prompt": "To convert 4 yards into feet (1 yard = 3 feet), which operation should you use?",
-      "choices": {"A": "Divide 4 by 3", "B": "Multiply 4 by 3", "C": "Add 3 to 4", "D": "Subtract 3 from 4"},
-      "answer": "B", "rationale": "Converting to a smaller unit means multiplying by the number of smaller units per larger unit."},
-    {"id": "d19_q5", "type": "numeric_entry", "difficulty": "challenge",
+      "choices": {
+        "A": "Divide 4 by 3",
+        "B": "Multiply 4 by 3",
+        "C": "Add 3 to 4",
+        "D": "Subtract 3 from 4"
+      },
+      "answer": "B",
+      "rationale": "Converting to a smaller unit means multiplying by the number of smaller units per larger unit."
+    },
+    {
+      "id": "d19_q5",
+      "type": "numeric_entry",
+      "difficulty": "challenge",
       "prompt": "There are 16 ounces in 1 pound. How many ounces are in 3.5 pounds?",
-      "formula": "16*3.5", "answer": 56, "rationale": "16 x 3.5 = 56 ounces."}
+      "formula": "16*3.5",
+      "answer": 56,
+      "rationale": "16 x 3.5 = 56 ounces."
+    }
+  ],
+  "ixl_prep": [
+    {
+      "label": "Convert and compare customary units",
+      "url": "https://www.ixl.com/math/grade-6/convert-and-compare-customary-units"
+    }
   ]
 }

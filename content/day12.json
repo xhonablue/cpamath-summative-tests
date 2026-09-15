@@ -2,7 +2,9 @@
   "day": 12,
   "title": "Finding the Percent of a Quantity",
   "topic": "Percent x whole = part",
-  "standards": ["6.RP.3c"],
+  "standards": [
+    "6.RP.3c"
+  ],
   "items": [
     {
       "id": "d12_q1",
@@ -36,7 +38,12 @@
       "type": "multiple_choice",
       "difficulty": "grade-level",
       "prompt": "To find 15% of a number, which expression is correct?",
-      "choices": {"A": "number / 15", "B": "number x 0.15", "C": "number x 15", "D": "number - 15"},
+      "choices": {
+        "A": "number / 15",
+        "B": "number x 0.15",
+        "C": "number x 15",
+        "D": "number - 15"
+      },
       "answer": "B",
       "rationale": "Convert the percent to a decimal (15% = 0.15) and multiply by the number."
     },
@@ -48,6 +55,12 @@
       "formula": "0.75*160",
       "answer": 120,
       "rationale": "0.75 x 160 = 120."
+    }
+  ],
+  "ixl_prep": [
+    {
+      "label": "Percents of numbers and money amounts",
+      "url": "https://www.ixl.com/math/grade-6/percents-of-numbers-and-money-amounts"
     }
   ]
 }

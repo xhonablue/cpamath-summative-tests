@@ -2,7 +2,9 @@
   "day": 13,
   "title": "Percent Word Problems",
   "topic": "Discount, tax, and tip applications",
-  "standards": ["6.RP.3c"],
+  "standards": [
+    "6.RP.3c"
+  ],
   "items": [
     {
       "id": "d13_q1",
@@ -45,9 +47,20 @@
       "type": "multiple_choice",
       "difficulty": "challenge",
       "prompt": "To find the total cost after adding 8% sales tax to a price, you can:",
-      "choices": {"A": "Multiply the price by 0.08 and stop there", "B": "Multiply the price by 1.08", "C": "Multiply the price by 8", "D": "Add 8 to the price"},
+      "choices": {
+        "A": "Multiply the price by 0.08 and stop there",
+        "B": "Multiply the price by 1.08",
+        "C": "Multiply the price by 8",
+        "D": "Add 8 to the price"
+      },
       "answer": "B",
       "rationale": "Multiplying by 1.08 adds the original 100% of the price plus the 8% tax in one step."
+    }
+  ],
+  "ixl_prep": [
+    {
+      "label": "Percents - calculate tax, tip, mark-up, and more",
+      "url": "https://www.ixl.com/math/grade-6/percents-calculate-tax-tip-mark-up-and-more"
     }
   ]
 }

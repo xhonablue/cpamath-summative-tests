@@ -2,23 +2,68 @@
   "day": 20,
   "title": "Ratios & Rates — Refine & Quiz",
   "topic": "Cumulative review of ratios, equivalent ratios, unit rates, and conversions",
-  "standards": ["6.RP.1", "6.RP.2", "6.RP.3a", "6.RP.3d"],
+  "standards": [
+    "6.RP.1",
+    "6.RP.2",
+    "6.RP.3a",
+    "6.RP.3d"
+  ],
   "items": [
-    {"id": "d20_q1", "type": "numeric_entry", "difficulty": "grade-level",
+    {
+      "id": "d20_q1",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
       "prompt": "A recipe uses a flour-to-sugar ratio of 3:2. If you use 9 cups of flour, how many cups of sugar keep the ratio equivalent?",
-      "formula": "2*(9/3)", "answer": 6, "rationale": "Scale factor = 9/3 = 3, so sugar = 2 x 3 = 6 cups."},
-    {"id": "d20_q2", "type": "numeric_entry", "difficulty": "grade-level",
+      "formula": "2*(9/3)",
+      "answer": 6,
+      "rationale": "Scale factor = 9/3 = 3, so sugar = 2 x 3 = 6 cups."
+    },
+    {
+      "id": "d20_q2",
+      "type": "numeric_entry",
+      "difficulty": "grade-level",
       "prompt": "A car uses 5 gallons of gas to travel 150 miles. What is the unit rate in miles per gallon?",
-      "formula": "150/5", "answer": 30, "rationale": "150 / 5 = 30 miles per gallon."},
-    {"id": "d20_q3", "type": "multiple_choice", "difficulty": "challenge",
+      "formula": "150/5",
+      "answer": 30,
+      "rationale": "150 / 5 = 30 miles per gallon."
+    },
+    {
+      "id": "d20_q3",
+      "type": "multiple_choice",
+      "difficulty": "challenge",
       "prompt": "Which pair of ratios is equivalent?",
-      "choices": {"A": "2:3 and 4:5", "B": "5:6 and 10:12", "C": "1:2 and 2:1", "D": "3:4 and 4:5"},
-      "answer": "B", "rationale": "5:6 scaled by 2 gives 10:12."},
-    {"id": "d20_q4", "type": "numeric_entry", "difficulty": "warm-up",
+      "choices": {
+        "A": "2:3 and 4:5",
+        "B": "5:6 and 10:12",
+        "C": "1:2 and 2:1",
+        "D": "3:4 and 4:5"
+      },
+      "answer": "B",
+      "rationale": "5:6 scaled by 2 gives 10:12."
+    },
+    {
+      "id": "d20_q4",
+      "type": "numeric_entry",
+      "difficulty": "warm-up",
       "prompt": "Convert 6 feet into inches (1 foot = 12 inches).",
-      "formula": "6*12", "answer": 72, "rationale": "6 x 12 = 72 inches."},
-    {"id": "d20_q5", "type": "numeric_entry", "difficulty": "challenge",
+      "formula": "6*12",
+      "answer": 72,
+      "rationale": "6 x 12 = 72 inches."
+    },
+    {
+      "id": "d20_q5",
+      "type": "numeric_entry",
+      "difficulty": "challenge",
       "prompt": "A store sells 4 pens for $5. At the same rate, how much would 12 pens cost, in dollars?",
-      "formula": "5*(12/4)", "answer": 15, "rationale": "Scale factor = 12/4 = 3, so cost = $5 x 3 = $15."}
+      "formula": "5*(12/4)",
+      "answer": 15,
+      "rationale": "Scale factor = 12/4 = 3, so cost = $5 x 3 = $15."
+    }
+  ],
+  "ixl_prep": [
+    {
+      "label": "Ratios and rates: word problems",
+      "url": "https://www.ixl.com/math/grade-6/ratios-and-rates-word-problems"
+    }
   ]
 }
